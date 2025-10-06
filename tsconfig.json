@@ -6,8 +6,8 @@
     "outDir": "./dist/out-tsc",
     "strict": true,
     "paths": {
-      "fullswing-angular-library": [
-        "./dist/fullswing-angular-library"
+      "fullswing-angular": [
+        "./dist/fullswing-angular"
       ]
     },
     "noImplicitOverride": true,

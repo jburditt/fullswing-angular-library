@@ -1,2 +1,2 @@
-# fullswing-angular-library
-Fullswing Solutions Angular Library
+# fullswing-angular
+Fullswing Solutions Angular Workspace
