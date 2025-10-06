@@ -1,7 +1,5 @@
-<ng-content select="[slot=menuLink]"></ng-content>
-
 <span #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu"></span>
-<mat-menu #menu="matMenu">
+<mat-menu #menu="matMenu" xPosition="after">
   @for (menuItem of items; track menuItem.displayName) {
     <button mat-menu-item [routerLink]="menuItem.routerLink">
         @if (menuItem.icon) { <mat-icon>{{menuItem.icon}}</mat-icon> }
@@ -15,3 +13,5 @@
     }
   }
 </mat-menu>
+
+<ng-content select="[slot=menuLink]"></ng-content>
