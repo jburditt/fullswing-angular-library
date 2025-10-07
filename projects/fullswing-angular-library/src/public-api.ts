@@ -6,6 +6,8 @@ export * from './components/datepicker/date-picker.component';
 export * from './components/address/address.component';
 export * from './components/menu/menu.component';
 export * from './components/menu/menu-item.model';
+export * from './components/validation-message/validation-message.component';
+export * from './components/textbox/textbox.component';
 
 export * from './services/config/config-service.interface';
 export * from './services/config/config.interface';
@@ -27,5 +29,3 @@ export * from './auth/auth.interface';
 export * from './auth/auth.provider';
 export * from './auth/oauth.service';
 export * from './auth/token.interceptor';
-
-export * from './components/validation-message/validation-message.component';
