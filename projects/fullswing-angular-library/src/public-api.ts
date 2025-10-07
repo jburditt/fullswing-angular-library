@@ -15,3 +15,5 @@ export * from './services/config/json-config.service';
 export * from './services/logging/logging-service.interface';
 export * from './services/logging/logging.factory';
 export * from './services/logging/lumberjack-logging.service';
+
+export * from './services/error-handler-service';
