@@ -4,8 +4,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({
-    selector: '[datePickerFormControl] date-picker',
-    templateUrl: './date-picker.component.html',
+    selector: '[datePickerFormControl] fs-datepicker',
+    templateUrl: './datepicker.component.html',
     imports: [
         FormsModule, ReactiveFormsModule,
         MatDatepickerModule, MatInputModule

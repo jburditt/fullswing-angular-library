@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
 import { MenuItem } from './menu-item.model';
 
 @Component({
-  selector: 'menu',
+  selector: 'fs-menu',
   templateUrl: './menu.component.html',
   imports: [RouterLink, MatMenuModule, MatIconModule, MatButtonModule]
 })

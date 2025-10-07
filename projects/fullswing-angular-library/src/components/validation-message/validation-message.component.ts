@@ -6,7 +6,7 @@ import { AbstractControl } from '@angular/forms';
 @Component({
     templateUrl: 'validation-message.component.html',
     imports: [],
-    selector: 'validation-message'
+    selector: 'fs-validation-message'
 })
 export class ValidationMessageComponent {
   @Input() control!: AbstractControl;

@@ -10,7 +10,7 @@ interface Province {
 }
 
 @Component({
-  selector: '[addressForm] address',
+  selector: '[addressForm] fs-address',
   templateUrl: 'address.component.html',
   imports: [FormsModule, ReactiveFormsModule, MatDatepickerModule, MatInputModule, MatSelectModule],
   styleUrls: ['address.component.scss']
