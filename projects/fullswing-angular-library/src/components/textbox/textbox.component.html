@@ -1,7 +1,7 @@
 <mat-form-field>
-  <mat-label>{{ label }}</mat-label>
-  <input matInput [formControl]="$any(parentForm.get(controlName))" required>
+  <mat-label>{{ label() }}</mat-label>
+  <input matInput [formControl]="$any(parentForm().get(controlName()))" required>
   <mat-error>
-    <fs-validation-message [label]="label" [control]="$any(parentForm.get(controlName))"></fs-validation-message>
+    <fs-validation-message [label]="label()" [control]="$any(parentForm().get(controlName()))"></fs-validation-message>
   </mat-error>
 </mat-form-field>

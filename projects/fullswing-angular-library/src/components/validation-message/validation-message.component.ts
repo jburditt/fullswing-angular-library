@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { LoggingFactory } from '../../services/logging/logging.factory';
 import { LoggingService } from '../../services/logging/logging-service.interface';
 import { AbstractControl } from '@angular/forms';
@@ -9,8 +9,8 @@ import { AbstractControl } from '@angular/forms';
     selector: 'fs-validation-message'
 })
 export class ValidationMessageComponent {
-  @Input() control!: AbstractControl;
-  @Input() label!: string;
+  control = input.required<AbstractControl>();
+  label = input.required<string>();
 
   private readonly _loggingService: LoggingService;
 

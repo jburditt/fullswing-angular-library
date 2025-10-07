@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, ViewChild } from '@angular/core';
+import { Component, HostListener, input, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
@@ -10,8 +10,10 @@ import { MenuItem } from './menu-item.model';
   templateUrl: './menu.component.html',
   imports: [RouterLink, MatMenuModule, MatIconModule, MatButtonModule]
 })
-export class MenuComponent {
-  @Input() items: Array<MenuItem> = [];
+export class MenuComponent
+{
+  items = input.required<Array<MenuItem>>();
+
   @ViewChild('menuTrigger') menuTrigger!: MatMenuTrigger;
 
   @HostListener('click', ['$event.target'])

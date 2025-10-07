@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
@@ -12,6 +12,6 @@ import { MatInputModule } from '@angular/material/input';
     ]
 })
 export class DatePickerComponent  {
-    @Input() title: string = "Date";
-    @Input() datePickerFormControl!: FormControl;
+    title = input("Date");
+    datePickerFormControl = input.required<FormControl>();
 }
