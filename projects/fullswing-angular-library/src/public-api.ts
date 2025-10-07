@@ -25,4 +25,5 @@ export * from './interceptors/httpconfig.interceptor';
 
 export * from './auth/auth.interface';
 export * from './auth/auth.provider';
+export * from './auth/oauth.service';
 export * from './auth/token.interceptor';

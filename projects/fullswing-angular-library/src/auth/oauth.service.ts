@@ -6,8 +6,8 @@ import { BehaviorSubject } from 'rxjs';
 import { ConfigService } from '../services/config/config-service.interface';
 
 @Injectable({ providedIn: 'root' })
-export class AzureOAuthService {
-
+export class AzureOAuthService
+{
   public isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public azureUserInfo: any = null;
 
@@ -21,23 +21,23 @@ export class AzureOAuthService {
     this._loggingService = loggingFactory.create(this.constructor.name);
   }
 
-  public init() {
+  public init(): Promise<boolean> {
     let authConfig = this.configService.config['authentication'];
     authConfig.redirectUri = window.location.origin;
     this.oauthService.configure(authConfig);
-
     this.oauthService.timeoutFactor = 0.7;
     this.oauthService.setupAutomaticSilentRefresh();
 
-    this.oauthService
+    return this.oauthService
       .loadDiscoveryDocumentAndLogin()
-      .then((isLoggedIn) => {
+      .then((isLoggedIn): Promise<boolean> => {
         if (isLoggedIn) {
-          this.oauthService.loadUserProfile().then((azureUserInfo: any) => {
+          return this.oauthService.loadUserProfile().then((azureUserInfo: any): boolean => {
             this.azureUserInfo = azureUserInfo;
             // correct
             this._loggingService.debug('Azure User Info', this.azureUserInfo);
             this.isLoggedIn$.next(true);
+            return true;
           });
         } else {
           // Pass in the original URL as additional state to the identity provider.  This information will be
@@ -47,10 +47,12 @@ export class AzureOAuthService {
           // to base64.
           let encodedState = btoa(JSON.stringify({ originalURL: window.location.href }));
           this.oauthService.initCodeFlow(encodedState);
+          return Promise.resolve(false);
         }
       })
       .catch((err) => {
         this._loggingService.error('OAuth Login Error', err);
+        return Promise.resolve(false);
       });
   }
 
