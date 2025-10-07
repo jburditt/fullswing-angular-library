@@ -17,3 +17,6 @@ export * from './services/logging/logging.factory';
 export * from './services/logging/lumberjack-logging.service';
 
 export * from './services/error-handler-service';
+
+export * from './services/toast/hot-toast.service';
+export * from './services/toast/toast-service.interface';
