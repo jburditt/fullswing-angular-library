@@ -22,3 +22,7 @@ export * from './services/toast/hot-toast.service';
 export * from './services/toast/toast-service.interface';
 
 export * from './interceptors/httpconfig.interceptor';
+
+export * from './auth/auth.interface';
+export * from './auth/auth.provider';
+export * from './auth/token.interceptor';

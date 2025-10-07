@@ -1,0 +1,64 @@
+import { Injectable } from '@angular/core';
+import { OAuthService } from 'angular-oauth2-oidc';
+import { LoggingFactory } from '../services/logging/logging.factory';
+import { LoggingService } from '../services/logging/logging-service.interface';
+import { BehaviorSubject } from 'rxjs';
+import { ConfigService } from '../services/config/config-service.interface';
+
+@Injectable({ providedIn: 'root' })
+export class AzureOAuthService {
+
+  public isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public azureUserInfo: any = null;
+
+  private readonly _loggingService: LoggingService;
+
+  constructor(
+    private readonly oauthService: OAuthService,
+    private readonly loggingFactory: LoggingFactory,
+    private readonly configService: ConfigService
+  ) {
+    this._loggingService = loggingFactory.create(this.constructor.name);
+  }
+
+  public init() {
+    let authConfig = this.configService.config['authentication'];
+    authConfig.redirectUri = window.location.origin;
+    this.oauthService.configure(authConfig);
+
+    this.oauthService.timeoutFactor = 0.7;
+    this.oauthService.setupAutomaticSilentRefresh();
+
+    this.oauthService
+      .loadDiscoveryDocumentAndLogin()
+      .then((isLoggedIn) => {
+        if (isLoggedIn) {
+          this.oauthService.loadUserProfile().then((azureUserInfo: any) => {
+            this.azureUserInfo = azureUserInfo;
+            // correct
+            this._loggingService.debug('Azure User Info', this.azureUserInfo);
+            this.isLoggedIn$.next(true);
+          });
+        } else {
+          // Pass in the original URL as additional state to the identity provider.  This information will be
+          // returned once the user has been authenticated and will be used to redirect the user to the
+          // originally requested URL.
+          // DO NOT URL encode the state value as that happens automatically by the OAuthService.  Just convert
+          // to base64.
+          let encodedState = btoa(JSON.stringify({ originalURL: window.location.href }));
+          this.oauthService.initCodeFlow(encodedState);
+        }
+      })
+      .catch((err) => {
+        this._loggingService.error('OAuth Login Error', err);
+      });
+  }
+
+  refresh(): void {
+    this.oauthService.refreshToken();
+  }
+
+  logout(): void {
+    this.oauthService.logOut();
+  }
+}
