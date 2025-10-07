@@ -20,3 +20,5 @@ export * from './services/error-handler-service';
 
 export * from './services/toast/hot-toast.service';
 export * from './services/toast/toast-service.interface';
+
+export * from './interceptors/httpconfig.interceptor';
