@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
@@ -16,7 +16,7 @@ interface Province {
   styleUrls: ['address.component.scss']
 })
 export class AddressComponent  {
-  @Input() addressForm!: FormGroup;
+  addressForm = input.required<FormGroup>();
   provinces: Province[] = [
     { code: 'AB', name: 'Alberta' },
     { code: 'BC', name: 'British Columbia' },
