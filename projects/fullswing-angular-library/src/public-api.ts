@@ -27,3 +27,5 @@ export * from './auth/auth.interface';
 export * from './auth/auth.provider';
 export * from './auth/oauth.service';
 export * from './auth/token.interceptor';
+
+export * from './components/validation-message/validation-message.component';
