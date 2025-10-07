@@ -56,11 +56,11 @@ export class AzureOAuthService
       });
   }
 
-  refresh(): void {
+  public refresh(): void {
     this.oauthService.refreshToken();
   }
 
-  logout(): void {
+  public logout(): void {
     this.oauthService.logOut();
   }
 }

@@ -11,7 +11,7 @@ export class LoggingFactory {
     private loggingService: LoggingService
   ) { }
 
-  create(scope: string): LoggingService {
+  public create(scope: string): LoggingService {
     // some services are initialized before configService is loaded, set logLevel after configService is loaded
     // NOTE this could lead to some extra logs on all levels on application startup
     if (!this.configService.config?.logLevel) {

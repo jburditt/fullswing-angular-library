@@ -17,7 +17,7 @@ export class MenuComponent
   @ViewChild('menuTrigger') menuTrigger!: MatMenuTrigger;
 
   @HostListener('click', ['$event.target'])
-  onClick(target: any) {
+  protected onClick(target: any) {
     this.menuTrigger.openMenu();
   }
 }

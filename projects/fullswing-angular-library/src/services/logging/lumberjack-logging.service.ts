@@ -15,27 +15,27 @@ export class LumberjackLoggingService implements LoggingService {
   scope?: string;
   logLevel: LogLevel = LogLevel.All;
 
-  debug(message: string, payload?: any) {
+  public debug(message: string, payload?: any) {
     if (this.logLevel <= LogLevel.Debug)
       this.writeToLog(LogLevel.Debug, message, payload);
   }
 
-  info(message: string, payload?: any) {
+  public info(message: string, payload?: any) {
     if (this.logLevel <= LogLevel.Info)
       this.writeToLog(LogLevel.Info, message, payload);
   }
 
-  warn(message: string, payload?: any) {
+  public warn(message: string, payload?: any) {
     if (this.logLevel <= LogLevel.Warn)
       this.writeToLog(LogLevel.Warn, message, payload);
   }
 
-  error(message: string, payload?: any) {
+  public error(message: string, payload?: any) {
     if (this.logLevel <= LogLevel.Error)
       this.writeToLog(LogLevel.Error, message, payload);
   }
 
-  fatal(message: string, payload?: any) {
+  public fatal(message: string, payload?: any) {
     if (this.logLevel <= LogLevel.Fatal)
       this.writeToLog(LogLevel.Fatal, message, payload);
   }

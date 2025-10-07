@@ -18,7 +18,7 @@ export class ValidationMessageComponent {
     this._loggingService = this.loggingFactory.create(this.constructor.name);
   }
 
-  ngOnInit() {
+  protected ngOnInit() {
     this._loggingService.debug('ValidationMessageComponent initialized');
   }
 }

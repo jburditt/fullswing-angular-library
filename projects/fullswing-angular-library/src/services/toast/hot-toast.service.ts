@@ -7,23 +7,23 @@ export class HotToastService implements ToastService {
 
     constructor(private hotToastService: NgNeatHotToastService) {}
 
-    info(message: string) {
+    public info(message: string) {
         this.hotToastService.info(message);
     }
 
-    error(message: string) {
+    public error(message: string) {
         this.hotToastService.error(message);
     }
 
-    warning(message: string) {
+    public warning(message: string) {
         this.hotToastService.warning(message);
     }
 
-    show(message: string) {
+    public show(message: string) {
         this.hotToastService.show(message);
     }
 
-    success(message: string) {
+    public success(message: string) {
         this.hotToastService.success(message);
     }
 }
