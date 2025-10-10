@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
 import { LogLevel, LoggingService } from "./logging-service.interface";
 import { ConfigService } from '../config/config-service.interface';
-import { filter } from "rxjs";
+import { filter, take } from "rxjs";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 @Injectable()
 export class LoggingFactory {
@@ -16,8 +17,11 @@ export class LoggingFactory {
     // NOTE this could lead to some extra logs on all levels on application startup
     if (!this.configService.config?.logLevel) {
       this.configService.isLoaded$
-        .pipe(filter((isLoaded: boolean) => isLoaded))
-        .subscribe(() => this.loggingService.logLevel = (<any>LogLevel)[this.configService.config.logLevel]);
+       .pipe(
+          filter((isLoaded: boolean) => isLoaded),
+          take(1),
+          takeUntilDestroyed()
+        ).subscribe(() => this.loggingService.logLevel = (<any>LogLevel)[this.configService.config.logLevel]);
     } else {
       this.loggingService.logLevel = (<any>LogLevel)[this.configService.config.logLevel];
     }
