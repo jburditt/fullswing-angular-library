@@ -26,6 +26,9 @@
     "@ngxpert/hot-toast": "^5.1.1",
     "angular-oauth2-oidc": "^17.0.1",
     "express": "^5.1.0",
+    "marked": "^16.4.0",
+    "ngx-markdown": "^20.1.0",
+    "prismjs": "^1.30.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
