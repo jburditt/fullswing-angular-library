@@ -9,7 +9,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
   imports: [MarkdownComponent, DatePipe, DisqusModule, MatExpansionModule],
   templateUrl: './blog.html',
   styleUrl: './blog.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  //changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Blog {
   id = input.required();
