@@ -4,7 +4,7 @@ import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideMarkdown } from 'ngx-markdown';
 import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
-import { DISQUS_SHORTNAME } from 'ngx-disqus';
+//import { DISQUS_SHORTNAME } from 'ngx-disqus';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,9 +14,9 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(withEventReplay()),
     provideHttpClient(withFetch()),
     provideMarkdown({ loader: HttpClient }),
-    {
-      provide: DISQUS_SHORTNAME,
-      useValue: 'fullswing'
-    },
+    // {
+    //   provide: DISQUS_SHORTNAME,
+    //   useValue: 'fullswing'
+    // },
   ]
 };
