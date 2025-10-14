@@ -27,6 +27,7 @@
     "angular-oauth2-oidc": "^17.0.1",
     "express": "^5.1.0",
     "marked": "^16.4.0",
+    "ngx-disqus": "^3.0.1",
     "ngx-markdown": "^20.1.0",
     "prismjs": "^1.30.0",
     "rxjs": "~7.8.0",

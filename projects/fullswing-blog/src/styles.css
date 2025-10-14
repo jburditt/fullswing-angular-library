@@ -142,7 +142,7 @@ code {
 }
 
 .profile {
-  border: solid 1px inherit;
+  border: solid 1px lightgrey;
   border-radius: 0.5em;
 }
 

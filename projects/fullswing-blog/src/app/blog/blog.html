@@ -10,4 +10,12 @@
 </div>
 
 <div style="padding-top:50px"></div>
-Comments
+
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Comments</mat-panel-title>
+    </mat-expansion-panel-header>
+    <disqus [identifier]="src()" />
+  </mat-expansion-panel>
+</mat-accordion>
