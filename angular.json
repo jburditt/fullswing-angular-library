@@ -35,6 +35,89 @@
           }
         }
       }
+    },
+    "fullswing-blog": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/fullswing-blog",
+      "sourceRoot": "projects/fullswing-blog/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "projects/fullswing-blog/src/main.ts",
+            "tsConfig": "projects/fullswing-blog/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/fullswing-blog/public"
+              }
+            ],
+            "styles": [
+              "projects/fullswing-blog/src/styles.css"
+            ],
+            "server": "projects/fullswing-blog/src/main.server.ts",
+            "outputMode": "server",
+            "ssr": {
+              "entry": "projects/fullswing-blog/src/server.ts"
+            }
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "fullswing-blog:build:production"
+            },
+            "development": {
+              "buildTarget": "fullswing-blog:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular/build:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/fullswing-blog/tsconfig.spec.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/fullswing-blog/public"
+              }
+            ],
+            "styles": [
+              "projects/fullswing-blog/src/styles.css"
+            ]
+          }
+        }
+      }
     }
   }
 }

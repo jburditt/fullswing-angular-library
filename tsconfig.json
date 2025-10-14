@@ -28,5 +28,13 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+  "references": [
+    {
+      "path": "./projects/fullswing-blog/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/fullswing-blog/tsconfig.spec.json"
+    }
+  ]
 }

@@ -7,3 +7,6 @@ A library with core components and services needed for OAuth, Forms, Error Handl
 - OAuth authentication
 - Datepicker, Address Form, Validation Message, Textbox
 
+# TODO
+
+https://www.npmjs.com/package/angular-oauth2-oidc
