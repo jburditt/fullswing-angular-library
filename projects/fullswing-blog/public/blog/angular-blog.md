@@ -1,4 +1,4 @@
-## How to create a simple Angular blog
+# How to create a simple Angular blog
 
 Today, I set out to setup a very basic Angular blog with minimal features. As per usual, I packed in more than I planned because I love shiny new features; even when I can recognize that it is on the cusp of just adding clutter.
 
