@@ -5,7 +5,6 @@ import { MarkdownComponent } from 'ngx-markdown';
 import { MatExpansionModule } from '@angular/material/expansion';
 
 @Component({
-  selector: 'app-blog',
   imports: [MarkdownComponent, DatePipe/*, DisqusModule*/, MatExpansionModule],
   templateUrl: './blog.html',
   styleUrl: './blog.css',
