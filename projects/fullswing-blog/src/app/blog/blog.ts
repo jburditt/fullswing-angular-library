@@ -5,16 +5,24 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { BlogService, CategoryType } from './blog.service';
 
 export class BlogPage {
-  title?: string;
+  title: string;
   categories: Array<CategoryType> = [];
   author?: string;
   date?: Date;
 
   constructor(blogService: BlogService, initialValue: BlogPage) {
-    //blogService.setTitle(title);
-    blogService.addCategories(['Angular']);
-    blogService.setAuthor('Jebb Burditt');
-    blogService.setDate(new Date(2025, 10, 14));
+    this.title = initialValue.title;
+    this.categories = initialValue.categories;
+    this.author = initialValue.author;
+    this.date = initialValue.date;
+    if (this.title)
+      blogService.setTitle(this.title);
+    if (this.categories.length > 0)
+      blogService.addCategories(this.categories);
+    if (this.author)
+      blogService.setAuthor(this.author);
+    if (this.date)
+      blogService.setDate(this.date);
   }
 }
 
@@ -28,6 +36,6 @@ export class Blog extends BlogPage {
   src = computed(() => `blog/${this.id()}.md`);
 
   constructor(blogService: BlogService) {
-    super(blogService, { categories: ['Angular'] });
+    super(blogService, { categories: ['Angular'], title: 'Not implemented yet' });
   }
 }

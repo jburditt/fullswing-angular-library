@@ -4,6 +4,10 @@ import { Injectable, signal } from '@angular/core';
 export class BlogService {
   public blog = signal<Blog>(new Blog());
 
+  public setTitle(title: string) {
+    this.blog().title = title;
+  }
+
   public addCategory(categoryType: CategoryType) {
     let cat = category[categoryType];
     this.blog().categories.push(cat);
@@ -26,9 +30,10 @@ export class BlogService {
 }
 
 export class Blog {
+  title!: string;
   categories: Array<Category> = [];
-  author: string | undefined;
-  date: Date | undefined;
+  author!: string;
+  date!: Date;
 }
 
 type CategoryMapping = {

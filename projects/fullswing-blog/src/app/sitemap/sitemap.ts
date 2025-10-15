@@ -1,31 +1,43 @@
-  import { Component, OnInit } from '@angular/core';
-  import { Router, Route } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, Route } from '@angular/router';
 
-  @Component({
-    template: `
-      <h2>SiteMap</h2>
-      <ul>
-        @for (route of allRoutes; track route) {
-          <li><a href="#">{{ route }}</a></li>
-        }
-      </ul>
-    `,
-  })
-  export class SiteMapComponent {
-    allRoutes: string[] = [];
+class Site {
+  route: string;
+  title: string;
+  constructor(route: string, title?: string) {
+    this.route = route;
+    this.title = title ?? route;
+  }
+}
 
-    constructor(private router: Router) {
-        this.traverseRouter('', this.router.config);
-    }
+@Component({
+  template: `
+    <h2>SiteMap</h2>
+    <ul>
+      @for (site of sites; track site.route) {
+        <li><a href="{{ site.route }}">{{ site.route }}</a></li>
+      }
+    </ul>
+  `,
+})
+export class SiteMapComponent {
+  sites: Site[] = [];
 
-    private traverseRouter(parentPath: string, config: Route[]): void {
-      for (const route of config) {
-        const currentPath = route.path ? `${parentPath}/${route.path}` : parentPath;
-        this.allRoutes.push(currentPath);
+  constructor(private router: Router) {
+    this.traverseRouter('', this.router.config);
+  }
 
-        if (route.children) {
-          this.traverseRouter(currentPath, route.children);
-        }
+  private traverseRouter(parentPath: string, config: Route[]): void {
+    for (const route of config) {
+      const currentPath = route.path ? `${parentPath}/${route.path}` : parentPath;
+
+      let site = new Site(currentPath, undefined);
+      this.sites.push(site);
+
+
+      if (route.children) {
+        this.traverseRouter(currentPath, route.children);
       }
     }
+  }
 }

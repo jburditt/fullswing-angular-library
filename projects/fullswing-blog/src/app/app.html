@@ -23,6 +23,7 @@
         <div class="{{ category.colour }} pill">{{ category.key }}</div>
       }
       <div class="clear"></div>
+      <h1>{{ this.blogService.blog().title }}</h1>
       <router-outlet />
       <div class="spacer10"></div>
       @if (this.blogService.blog().author) {
