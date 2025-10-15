@@ -16,10 +16,15 @@ export class BlogService {
     this.categories.update(value => [...value, cat]);
   }
 
-  public addCategories(categoryTypes: CategoryType[]) {
+  public setCategories(categoryTypes: CategoryType[]) {
+    let categories: Category[] = [];
     for (let categoryType of categoryTypes) {
-      this.addCategory(categoryType);
+      let cat: Category = category[categoryType];
+      categories.push(cat);
     }
+    //console.log("categories", this.categories());
+    //this.categories.update(value => [...value, ...categories]);
+    this.categories.set(categories);
   }
 
   public setAuthor(author: string) {
@@ -43,7 +48,7 @@ type CategoryMapping = {
 }
 
 class Category {
-  key: CategoryType | undefined;
+  key: CategoryType;
   colour: string = "red";
 
   constructor(key: CategoryType, colour: string = "red") {

@@ -29,7 +29,7 @@ class BlogBase implements BlogMeta {
     if (this.title)
       blogService.setTitle(this.title);
     if (this.categories.length > 0)
-      blogService.addCategories(this.categories);
+      blogService.setCategories(this.categories);
     if (this.author)
       blogService.setAuthor(this.author);
     if (this.date)
@@ -65,22 +65,15 @@ export class Blog implements OnInit {
   // TODO unsubscribe
   protected loadMetaFile(filePath: string) {
     this.http.get(`/blog/${filePath}`).subscribe((response: any) => {
-      console.log("test", response);
-      // let blogPage = new BlogPage({
-      //   title: response.title,
-      //   categories: response.categories,
-      //   author: response.author,
-      //   date: response.date
-      // });
-      // //this.update(blogService, this);
+      console.log("response", response);
       if (response.title)
          this.blogService.setTitle(response.title);
-      // if (blogPage.categories.length > 0)
-      //   this.blogService.addCategories(blogPage.categories);
-      // if (blogPage.author)
-      //   this.blogService.setAuthor(blogPage.author);
-      // if (blogPage.date)
-      //   this.blogService.setDate(blogPage.date);
+      if (response.categories.length > 0)
+        this.blogService.setCategories(response.categories);
+      if (response.author)
+        this.blogService.setAuthor(response.author);
+      if (response.date)
+        this.blogService.setDate(response.date);
     });
   }
 }
