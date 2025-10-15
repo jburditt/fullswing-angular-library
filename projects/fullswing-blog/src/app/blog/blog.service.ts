@@ -8,6 +8,13 @@ export class BlogService {
     let cat = category[categoryType];
     this.blog().categories.push(cat);
   }
+
+  public addCategories(categoryTypes: CategoryType[]) {
+    for (let categoryType of categoryTypes) {
+      let cat = category[categoryType];
+      this.blog().categories.push(cat);
+    }
+  }
 }
 
 export class Blog {
@@ -28,9 +35,11 @@ export class Category {
   }}
 
 export const category: CategoryMapping = {
-  Angular: new Category('Angular', 'red'),
-  TypeScript: new Category('TypeScript', 'blue'),
-  JavaScript: new Category('JavaScript', 'violet')
+  Angular: new Category('Angular', 'hot-red'),
+  TypeScript: new Category('TypeScript', 'bright-blue'),
+  JavaScript: new Category('JavaScript', 'electric-pink'),
+  Azure: new Category('Azure', 'light-blue'),
+  GitHub: new Category('GitHub', 'gray-700')
 }
 
-type CategoryType = "Angular" | "TypeScript" | "JavaScript"
+type CategoryType = "Angular" | "TypeScript" | "JavaScript" | 'Azure' | 'GitHub';

@@ -8,6 +8,6 @@ import { BlogService } from '../../blog/blog.service';
 })
 export class AzureStaticAppPage {
   constructor(blogService: BlogService) {
-    blogService.addCategory('Angular');
+    blogService.addCategories(['Angular', 'Azure', 'GitHub']);
   }
 }
