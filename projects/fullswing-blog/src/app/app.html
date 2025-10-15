@@ -24,6 +24,31 @@
       }
       <div class="clear"></div>
       <router-outlet />
+      <div class="spacer10"></div>
+      @if (this.blogService.blog().author) {
+        <img src="/avatar.png" alt="Avatar" class="profile" />
+        <br /> &nbsp;
+      }
+      <div class="flexbox" style="position:relative">
+        @if (this.blogService.blog().author) {
+          <span class="small-text" style="position:absolute; bottom: 0">{{ this.blogService.blog().author }}</span>
+        }
+        @if (this.blogService.blog().date) {
+          <span class="spacer"></span>
+          <span class="small-text" style="position:absolute; bottom: 0; right:0">{{ this.blogService.blog().date | date }}</span>
+        }
+      </div>
+
+      <!--
+      <div style="padding-top:50px"></div>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Comments</mat-panel-title>
+          </mat-expansion-panel-header>
+          <disqus [identifier]="src()" />
+        </mat-expansion-panel>
+      </mat-accordion> -->
     </div>
   </div>
 </main>

@@ -9,5 +9,7 @@ import { BlogService } from '../../blog/blog.service';
 export class AzureStaticAppPage {
   constructor(blogService: BlogService) {
     blogService.addCategories(['Angular', 'Azure', 'GitHub']);
+    blogService.setAuthor('Jebb Burditt');
+    blogService.setDate(new Date(2025, 10, 15));
   }
 }

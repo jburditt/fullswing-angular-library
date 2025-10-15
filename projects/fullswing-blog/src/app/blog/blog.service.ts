@@ -15,17 +15,27 @@ export class BlogService {
       this.blog().categories.push(cat);
     }
   }
+
+  public setAuthor(author: string) {
+    this.blog().author = author;
+  }
+
+  public setDate(date: Date) {
+    this.blog().date = date;
+  }
 }
 
 export class Blog {
   categories: Array<Category> = [];
+  author: string | undefined;
+  date: Date | undefined;
 }
 
 type CategoryMapping = {
   [key in CategoryType]: Category;
 }
 
-export class Category {
+class Category {
   key: CategoryType | undefined;
   colour: string = "red";
 
@@ -34,7 +44,7 @@ export class Category {
     this.colour = colour;
   }}
 
-export const category: CategoryMapping = {
+const category: CategoryMapping = {
   Angular: new Category('Angular', 'hot-red'),
   TypeScript: new Category('TypeScript', 'bright-blue'),
   JavaScript: new Category('JavaScript', 'electric-pink'),
