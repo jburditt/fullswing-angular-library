@@ -1,7 +1,7 @@
 import { RenderMode, ServerRoute } from '@angular/ssr';
 
 export const routesIDs: string[] = [
-  'angular-blog'
+  'doc-template'
 ];
 
 export const serverRoutes: ServerRoute[] = [

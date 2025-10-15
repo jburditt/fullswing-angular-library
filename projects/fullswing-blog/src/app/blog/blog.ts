@@ -1,9 +1,10 @@
-import { Component, computed, inject, input, OnInit } from '@angular/core';
+import { Component, computed, inject, input, OnDestroy, OnInit } from '@angular/core';
 //import { DisqusModule } from 'ngx-disqus';
 import { MarkdownComponent } from 'ngx-markdown';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { BlogService, CategoryType } from './blog.service';
 import { HttpClient } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 
 export interface BlogMeta {
   title: string;
@@ -50,9 +51,10 @@ export class BlogPage extends BlogBase {
   templateUrl: './blog.html',
   styleUrl: './blog.css'
 })
-export class Blog implements OnInit {
+export class Blog implements OnInit, OnDestroy {
   id = input.required();
   src = computed(() => `blog/${this.id()}.md`);
+  getMetaFile: Subscription | undefined;
 
   constructor(private http: HttpClient, private blogService: BlogService) {
     //super();
@@ -62,10 +64,15 @@ export class Blog implements OnInit {
     this.loadMetaFile(`${this.id()}.json`);
   }
 
-  // TODO unsubscribe
+  ngOnDestroy(): void {
+    this.getMetaFile?.unsubscribe();
+  }
+
   protected loadMetaFile(filePath: string) {
-    this.http.get(`/blog/${filePath}`).subscribe((response: any) => {
+    this.getMetaFile = this.http.get(`/blog/${filePath}`).subscribe((response: any) => {
+      // TODO why is this run twice?
       console.log("response", response);
+      // TODO add this.blogService.setBlog(response)
       if (response.title)
          this.blogService.setTitle(response.title);
       if (response.categories.length > 0)
