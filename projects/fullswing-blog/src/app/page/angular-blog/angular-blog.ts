@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { MarkdownComponent } from 'ngx-markdown';
-import { BlogService } from '../../blog/blog.service';
 import { CodeBlockComponent } from '../../code-block/code-block';
 import { BlogPage } from '../../blog/blog';
 

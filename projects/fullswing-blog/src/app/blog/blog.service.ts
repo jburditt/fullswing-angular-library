@@ -2,30 +2,32 @@ import { Injectable, signal } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class BlogService {
-  public blog = signal<Blog>(new Blog());
+  public title = signal<string | null>(null);
+  public categories = signal<Array<Category>>([]);
+  public author = signal<string | null>(null);
+  public date = signal<Date | null>(null);
 
   public setTitle(title: string) {
-    this.blog().title = title;
+    this.title.set(title);
   }
 
   public addCategory(categoryType: CategoryType) {
-    let cat = category[categoryType];
-    this.blog().categories.push(cat);
+    let cat: Category = category[categoryType];
+    this.categories.update(value => [...value, cat]);
   }
 
   public addCategories(categoryTypes: CategoryType[]) {
     for (let categoryType of categoryTypes) {
-      let cat = category[categoryType];
-      this.blog().categories.push(cat);
+      this.addCategory(categoryType);
     }
   }
 
   public setAuthor(author: string) {
-    this.blog().author = author;
+    this.author.set(author);
   }
 
   public setDate(date: Date) {
-    this.blog().date = date;
+    this.date.set(date);
   }
 }
 

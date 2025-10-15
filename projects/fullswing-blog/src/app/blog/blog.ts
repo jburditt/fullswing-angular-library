@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, OnInit } from '@angular/core';
 //import { DisqusModule } from 'ngx-disqus';
 import { MarkdownComponent } from 'ngx-markdown';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -25,8 +25,7 @@ class BlogBase implements BlogMeta {
     this.date = initialValue.date;
   }
 
-  protected update(value: BlogPage) {
-    const blogService = inject(BlogService);
+  protected update(blogService: BlogService, value: BlogPage) {
     if (this.title)
       blogService.setTitle(this.title);
     if (this.categories.length > 0)
@@ -41,22 +40,8 @@ class BlogBase implements BlogMeta {
 export class BlogPage extends BlogBase {
   constructor(initialValue: BlogMeta) {
     super(initialValue);
-    this.update(this);
-  }
-}
-
-export class BlogPageWithMetaFile extends BlogBase {
-  constructor(filePath: string) {
-    super({ title: "", categories: [] });
-    this.title = "Loading...";
-    const http = inject(HttpClient);
-    http.get("/blog/" + filePath).subscribe((response: any) => {
-      this.title = response.title;
-      this.categories = response.categories;
-      this.author = response.author;
-      this.date = response.date;
-      this.update(this);
-    });
+    const blogService = inject(BlogService);
+    this.update(blogService, this);
   }
 }
 
@@ -65,11 +50,37 @@ export class BlogPageWithMetaFile extends BlogBase {
   templateUrl: './blog.html',
   styleUrl: './blog.css'
 })
-export class Blog extends BlogPageWithMetaFile {
+export class Blog implements OnInit {
   id = input.required();
   src = computed(() => `blog/${this.id()}.md`);
 
-  constructor() {
-    super("doc-template.json");
+  constructor(private http: HttpClient, private blogService: BlogService) {
+    //super();
+  }
+
+  ngOnInit(): void {
+    this.loadMetaFile(`${this.id()}.json`);
+  }
+
+  // TODO unsubscribe
+  protected loadMetaFile(filePath: string) {
+    this.http.get(`/blog/${filePath}`).subscribe((response: any) => {
+      console.log("test", response);
+      // let blogPage = new BlogPage({
+      //   title: response.title,
+      //   categories: response.categories,
+      //   author: response.author,
+      //   date: response.date
+      // });
+      // //this.update(blogService, this);
+      if (response.title)
+         this.blogService.setTitle(response.title);
+      // if (blogPage.categories.length > 0)
+      //   this.blogService.addCategories(blogPage.categories);
+      // if (blogPage.author)
+      //   this.blogService.setAuthor(blogPage.author);
+      // if (blogPage.date)
+      //   this.blogService.setDate(blogPage.date);
+    });
   }
 }
