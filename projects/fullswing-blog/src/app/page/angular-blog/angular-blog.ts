@@ -9,8 +9,8 @@ import { BlogPage } from '../../blog/blog';
   templateUrl: './angular-blog.html'
 })
 export class AngularBlogPage extends BlogPage {
-  constructor(blogService: BlogService) {
-    super(blogService, {
+  constructor() {
+    super({
       title: "How to create a simple Angular blog",
       categories: ['Angular'],
       author: 'Jebb Burditt',

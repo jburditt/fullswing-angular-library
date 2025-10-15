@@ -8,8 +8,8 @@ import { BlogPage } from '../../blog/blog';
   templateUrl: './azure-static-app.html'
 })
 export class AzureStaticAppPage extends BlogPage {
-  constructor(blogService: BlogService) {
-    super(blogService, {
+  constructor() {
+    super({
       title: "Deploy Azure Static Web App [from Angular workspace]",
       categories: ['Angular', 'Azure', 'GitHub'],
       author: 'Jebb Burditt',

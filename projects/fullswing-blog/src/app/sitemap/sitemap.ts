@@ -34,7 +34,6 @@ export class SiteMapComponent {
       let site = new Site(currentPath, undefined);
       this.sites.push(site);
 
-
       if (route.children) {
         this.traverseRouter(currentPath, route.children);
       }
