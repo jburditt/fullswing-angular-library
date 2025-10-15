@@ -4,9 +4,9 @@ import { Injectable, signal } from '@angular/core';
 export class BlogService {
   public blog = signal<Blog>(new Blog());
 
-  public addCategory(categoryKey: CategoryKey) {
-    let category = Category.get(categoryKey);
-    this.blog().categories.push(category);
+  public addCategory(categoryType: CategoryType) {
+    let cat = category[categoryType];
+    this.blog().categories.push(cat);
   }
 }
 
@@ -14,29 +14,23 @@ export class Blog {
   categories: Array<Category> = [];
 }
 
+type CategoryMapping = {
+  [key in CategoryType]: Category;
+}
+
 export class Category {
-  key: CategoryKey | undefined;
+  key: CategoryType | undefined;
   colour: string = "red";
 
-  constructor(key: CategoryKey, colour: string = "red") {
+  constructor(key: CategoryType, colour: string = "red") {
     this.key = key;
     this.colour = colour;
-  }
+  }}
 
-  static get(key: CategoryKey): Category {
-    switch (key) {
-      case CategoryKey.Angular:
-        return new Category(CategoryKey.Angular, "red");
-      case CategoryKey.TypeScript:
-        return new Category(CategoryKey.TypeScript, "blue");
-      case CategoryKey.JavaScript:
-        return new Category(CategoryKey.JavaScript, "violet");
-    }
-  }
+export const category: CategoryMapping = {
+  Angular: new Category('Angular', 'red'),
+  TypeScript: new Category('TypeScript', 'blue'),
+  JavaScript: new Category('JavaScript', 'violet')
 }
 
-export enum CategoryKey {
-  Angular,
-  TypeScript,
-  JavaScript
-}
+type CategoryType = "Angular" | "TypeScript" | "JavaScript"

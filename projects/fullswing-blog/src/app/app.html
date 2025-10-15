@@ -19,8 +19,8 @@
         </div>
       </div>
       <div style="margin-top: 4em;"></div>
-      @for (category of this.blogService.blog().categories; track category.toString()) {
-        <div class="red pill">Angular</div>
+      @for (category of this.blogService.blog().categories; track category.key) {
+        <div class="{{ category.colour }} pill">{{ category.key }}</div>
       }
       <router-outlet />
     </div>
