@@ -7,6 +7,7 @@ Today, I set out to set up a basic headless Angular blog with minimal features. 
   <li>Blog content using markdown files</li>
   <li>Markdown package supports markdown, line numbers and highlighting, command line, mermaid diagrams, and emojis</li>
   <li>Add code snippets directly from your open source GitHub</li>
+  <li>Schematics: Generate blog content without Angular experience</li>
 </ul>
 
 <h2>Optional features</h2>
@@ -24,22 +25,17 @@ Today, I set out to set up a basic headless Angular blog with minimal features. 
   <li>Edit app.html to be your template used for all your pages and blogs.</li>
 </ol>
 
-<h3>app.html</h3>
 <fs-code [title]="'app.html'" [src]="'https://raw.githubusercontent.com/jburditt/fullswing-angular-library/refs/heads/main/projects/fullswing-blog/src/app/app.html'" />
 
-<h3>app.ts</h3>
 <fs-code [title]="'app.ts'" [src]="'https://raw.githubusercontent.com/jburditt/fullswing-angular-library/refs/heads/main/projects/fullswing-blog/src/app/app.ts'" />
 
-<h3>app.css</h3>
 <fs-code [title]="'app.css'" [src]="'https://raw.githubusercontent.com/jburditt/fullswing-angular-library/refs/heads/main/projects/fullswing-blog/src/app/app.css'" />
 
 4. Create page.component `ng generate component src/app/page`
 5. Create blog.component `ng generate component src/app/blog`
 
-<h3>blog.html</h3>
 <fs-code [title]="'blog.html'" [src]="'https://raw.githubusercontent.com/jburditt/fullswing-angular-library/refs/heads/main/projects/fullswing-blog/src/app/blog/blog.html'" />
 
-<h3>blog.ts</h3>
 <fs-code [title]="'blog.ts'" [src]="'https://raw.githubusercontent.com/jburditt/fullswing-angular-library/refs/heads/main/projects/fullswing-blog/src/app/blog/blog.ts'" />
 
 6. (optional) Install Disqus for commenting `npm i ngx-disqus --force`. Follow the instructions to setup a new site on [Disqus](www.disqus.com) and [ngx-disqus](https://github.com/MurhafSousli/ngx-disqus).
