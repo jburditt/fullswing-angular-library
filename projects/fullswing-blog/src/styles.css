@@ -154,7 +154,7 @@ code {
   border-radius: 0.5em;
 }
 
-.blue {
+.bright-blue {
   --pill-accent: var(--bright-blue);
 }
 
@@ -197,4 +197,14 @@ code {
 
 .pill:hover {
   background: color-mix(in srgb, var(--pill-accent) 15%, transparent);
+}
+
+.bottom {
+  position: absolute;
+  bottom: 0
+}
+
+.right {
+  position: absolute;
+  right: 0;
 }
