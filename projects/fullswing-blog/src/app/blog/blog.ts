@@ -12,7 +12,7 @@ export interface BlogMeta {
   date?: Date;
 }
 
-export class BlogPage implements BlogMeta {
+class BlogBase implements BlogMeta {
   title: string;
   categories: Array<CategoryType> = [];
   author?: string;
@@ -23,10 +23,9 @@ export class BlogPage implements BlogMeta {
     this.categories = initialValue.categories;
     this.author = initialValue.author;
     this.date = initialValue.date;
-    this.update(this);
   }
 
-  private update(value: BlogPage) {
+  protected update(value: BlogPage) {
     const blogService = inject(BlogService);
     if (this.title)
       blogService.setTitle(this.title);
@@ -39,13 +38,16 @@ export class BlogPage implements BlogMeta {
   }
 }
 
-export class BlogPageWithMetaFile implements BlogMeta {
-  title: string;
-  categories: Array<CategoryType> = [];
-  author?: string;
-  date?: Date;
+export class BlogPage extends BlogBase {
+  constructor(initialValue: BlogMeta) {
+    super(initialValue);
+    this.update(this);
+  }
+}
 
+export class BlogPageWithMetaFile extends BlogBase {
   constructor(filePath: string) {
+    super({ title: "", categories: [] });
     this.title = "Loading...";
     const http = inject(HttpClient);
     http.get("/blog/" + filePath).subscribe((response: any) => {
@@ -53,16 +55,7 @@ export class BlogPageWithMetaFile implements BlogMeta {
       this.categories = response.categories;
       this.author = response.author;
       this.date = response.date;
-
-      const blogService = inject(BlogService);
-      if (this.title)
-        blogService.setTitle(this.title);
-      if (this.categories.length > 0)
-        blogService.addCategories(this.categories);
-      if (this.author)
-        blogService.setAuthor(this.author);
-      if (this.date)
-        blogService.setDate(this.date);
+      this.update(this);
     });
   }
 }
