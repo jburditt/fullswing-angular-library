@@ -52,4 +52,4 @@ const category: CategoryMapping = {
   GitHub: new Category('GitHub', 'gray-700')
 }
 
-type CategoryType = "Angular" | "TypeScript" | "JavaScript" | 'Azure' | 'GitHub';
+export type CategoryType = "Angular" | "TypeScript" | "JavaScript" | 'Azure' | 'GitHub';
