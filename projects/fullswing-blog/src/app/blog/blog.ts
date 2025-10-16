@@ -70,8 +70,6 @@ export class Blog implements OnInit, OnDestroy {
 
   protected loadMetaFile(filePath: string) {
     this.getMetaFile = this.http.get(`/blog/${filePath}`).subscribe((response: any) => {
-      // TODO why is this run twice?
-      console.log("response", response);
       // TODO add this.blogService.setBlog(response)
       if (response.title)
          this.blogService.setTitle(response.title);
