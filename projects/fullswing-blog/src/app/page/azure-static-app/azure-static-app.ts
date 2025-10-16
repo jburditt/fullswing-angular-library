@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
+import { CodeBlockComponent } from '../../code-block/code-block';
 import { MarkdownComponent } from 'ngx-markdown';
-import { Database } from '../../db/db';
 import { BlogPage } from '../../blog/blog.service';
 
 @Component({
-  imports: [MarkdownComponent],
-  templateUrl: './azure-static-app.html'
+  imports: [CodeBlockComponent, MarkdownComponent],
+  templateUrl: './azure-static-app.html',
+  preserveWhitespaces: true
 })
 export class AzureStaticAppPage extends BlogPage {
   constructor() {

@@ -7,7 +7,7 @@ For a standard Angular application, follow the step 1 link and you are done. If 
   <li>Follow the <a href="https://learn.microsoft.com/en-us/azure/static-web-apps/deploy-angular?pivots=github">Microsoft Documentation</a> instructions</li>
   <li>
       Update the Github action workflow NodeJs version, since the existing version 18 will not work with Azure.
-      <markdown lineHighlight [line]="'25-27'" [lineOffset]="20" ngPreserveWhitespaces>
+      <fs-code [line]="'25-27'" [lineOffset]="20">
         ```yaml
         steps:
           - uses: actions/checkout@v3
@@ -18,11 +18,11 @@ For a standard Angular application, follow the step 1 link and you are done. If 
             with:
               node-version: '20.x'
         ```
-      </markdown>
+      </fs-code>
   </li>
   <li>
     Update the Github action workflow build command.
-    <markdown lineHighlight [line]="'46-50'" [lineOffset]="38" ngPreserveWhitespaces ngNonBindable>
+    <fs-code [line]="'46-50'" [lineOffset]="38" ngNonBindable>
       ```yaml
       - name: Build And Deploy
         id: builddeploy
@@ -37,6 +37,6 @@ For a standard Angular application, follow the step 1 link and you are done. If 
           output_location: "dist/fullswing-blog/browser" # Built app content directory - optional
           app_build_command: "npm run build fullswing-blog --configuration=production"
       ```
-    </markdown>
+    </fs-code>
   </li>
 </ol>
