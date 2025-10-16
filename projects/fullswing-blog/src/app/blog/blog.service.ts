@@ -6,8 +6,6 @@ export class BlogPage {
     const blogService = inject(BlogService);
     const repositoryService = inject(RepositoryService);
     const blog = repositoryService.getPage(route);
-    console.log("route", route);
-    console.log("page", blog);
     blogService.setBlog(blog);
   }
 }
