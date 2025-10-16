@@ -1,0 +1,26 @@
+{
+  "blogs": [
+    {
+      "route": "/blog/doc-template",
+      "title": "Documentation Template",
+      "author": "Jebb Burditt2",
+      "date": "Oct 17, 2025"
+    }
+  ],
+  "pages": [
+    {
+      "route": "/page/azure-static-app",
+      "title": "Deploy Azure Static Web App [from Angular workspace]",
+      "categories": ["Angular", "Azure", "GitHub"],
+      "author": "Jebb Burditt",
+      "date": "Oct 15, 2025"
+    },
+    {
+      "route": "/page/angular-blog",
+      "title": "How to create a simple Angular blog",
+      "categories": ["Angular"],
+      "author": "Jebb Burditt",
+      "date": "Oct 14, 2025"
+    }
+  ]
+}

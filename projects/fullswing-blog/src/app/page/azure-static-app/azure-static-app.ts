@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MarkdownComponent } from 'ngx-markdown';
-import { BlogService } from '../../blog/blog.service';
-import { BlogPage } from '../../blog/blog';
+import { Database } from '../../db/db';
+import { BlogPage } from '../../blog/blog.service';
 
 @Component({
   imports: [MarkdownComponent],
@@ -9,11 +9,6 @@ import { BlogPage } from '../../blog/blog';
 })
 export class AzureStaticAppPage extends BlogPage {
   constructor() {
-    super({
-      title: "Deploy Azure Static Web App [from Angular workspace]",
-      categories: ['Angular', 'Azure', 'GitHub'],
-      author: 'Jebb Burditt',
-      date: new Date(2025, 10, 15)
-    });
+    super('/page/azure-static-app');
   }
 }

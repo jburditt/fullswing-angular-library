@@ -1,4 +1,16 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
+import { Blog, category, Category, CategoryType, RepositoryService } from '../db/db';
+
+export class BlogPage {
+  constructor(route: string) {
+    const blogService = inject(BlogService);
+    const repositoryService = inject(RepositoryService);
+    const blog = repositoryService.getPage(route);
+    console.log("route", route);
+    console.log("page", blog);
+    blogService.setBlog(blog);
+  }
+}
 
 @Injectable({ providedIn: 'root' })
 export class BlogService {
@@ -6,6 +18,19 @@ export class BlogService {
   public categories = signal<Array<Category>>([]);
   public author = signal<string | null>(null);
   public date = signal<Date | null>(null);
+
+  public setBlog(blog: Blog) {
+    if (!blog)
+      throw "Blog not found";
+    if (blog.title)
+      this.setTitle(blog.title);
+    if (blog.categories?.length > 0)
+      this.setCategories(blog.categories);
+    if (blog.author)
+      this.setAuthor(blog.author);
+    if (blog.date)
+      this.setDate(blog.date);
+  }
 
   public setTitle(title: string) {
     this.title.set(title);
@@ -35,33 +60,3 @@ export class BlogService {
     this.date.set(date);
   }
 }
-
-export class Blog {
-  title!: string;
-  categories: Array<Category> = [];
-  author!: string;
-  date!: Date;
-}
-
-type CategoryMapping = {
-  [key in CategoryType]: Category;
-}
-
-class Category {
-  key: CategoryType;
-  colour: string = "red";
-
-  constructor(key: CategoryType, colour: string = "red") {
-    this.key = key;
-    this.colour = colour;
-  }}
-
-const category: CategoryMapping = {
-  Angular: new Category('Angular', 'hot-red'),
-  TypeScript: new Category('TypeScript', 'bright-blue'),
-  JavaScript: new Category('JavaScript', 'electric-pink'),
-  Azure: new Category('Azure', 'light-blue'),
-  GitHub: new Category('GitHub', 'gray-700')
-}
-
-export type CategoryType = "Angular" | "TypeScript" | "JavaScript" | 'Azure' | 'GitHub';
