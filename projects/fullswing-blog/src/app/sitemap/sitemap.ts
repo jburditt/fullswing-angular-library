@@ -1,52 +1,67 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, Route } from '@angular/router';
-import { routesIDs } from '../app.routes.server';
-
-class Site {
-  route: string;
-  title: string;
-  constructor(route: string, title?: string) {
-    this.route = route;
-    this.title = title ?? route;
-  }
-}
+import { Component } from '@angular/core';
+import { Blog, Category, RepositoryService } from '../db/db';
+import { CommonModule } from '@angular/common';
 
 @Component({
   template: `
+    @for (category of categories; track category.key) {
+      <div style="cursor:pointer" [ngClass]="categoryClass(category.key)" (click)="categoryToggle(category.key)">{{ category.key }}</div>
+    }
+    <br class="clear" />
+    <div class="spacer10"></div>
+
     <h2>SiteMap</h2>
+
     <ul>
-      @for (site of sites; track site.route) {
-        <li><a href="{{ site.route }}">{{ site.route }}</a></li>
+      @for (blog of filteredBlogs; track blog.route) {
+        <li><a href="{{ blog.route }}">{{ blog.title }}</a> - {{ blog.date }}</li>
       }
     </ul>
   `,
+  styles: `
+    .pill:hover {
+      background: color-mix(in srgb, var(--pill-accent) 1%, transparent);
+    }
+    .pill-active, .pill-active:hover {
+      background: color-mix(in srgb, var(--pill-accent) 25%, transparent);
+    }
+  `,
+  imports: [CommonModule]
 })
 export class SiteMapComponent {
-  sites: Site[] = [];
+  blogs: Blog[];
+  filteredBlogs: Blog[];
+  categories: Category[];
+  categoryToggles: CategoryToggle[];
 
-  constructor(private router: Router) {
-    this.traverseRouter('', this.router.config)
-    let routes = routesIDs.map(route => new Site(`/blog/${route}`));
-    console.log("routes", routes);
-    // TODO figure out why this doesn't work
-    //this.sites.concat(routes);
-    for (let route of routes) {
-      this.sites.push(route);
-    }
+  constructor(public repositoryService: RepositoryService) {
+    this.blogs = repositoryService.getAll();
+    this.filteredBlogs = this.blogs;
+    this.categories = this.repositoryService.getCategories();
+    this.categoryToggles = this.categories.map((c) => new CategoryToggle(c.key, true));
   }
 
-  private traverseRouter(parentPath: string, config: Route[]): void {
-    for (const route of config) {
-      const currentPath = route.path ? `${parentPath}/${route.path}` : parentPath;
+  protected categoryClass(key: string): string[] {
+    return [
+      this.categories.find(c => c.key == key)?.colour ?? "",
+      "pill",
+      this.categoryToggles.find(c => c.key == key)?.isActive ? "pill-active" : ""
+    ];
+  }
 
-      if (currentPath.startsWith('/page')) {
-        let site = new Site(currentPath, undefined);
-        this.sites.push(site);
-      }
+  protected categoryToggle(key: string) {
+    let categoryToggle = this.categoryToggles.find(c => c.key == key);
+    if (categoryToggle)
+      categoryToggle.isActive = !categoryToggle.isActive;
+    this.filteredBlogs = this.blogs.filter((b) => b.categories.every((c) => c in this.categoryToggles.filter((ct) => ct.isActive)));
+  }
+}
 
-      if (route.children) {
-        this.traverseRouter(currentPath, route.children);
-      }
-    }
+class CategoryToggle {
+  key: string;
+  isActive: boolean;
+  constructor(key: string, isActive: boolean) {
+    this.key = key;
+    this.isActive = isActive;
   }
 }

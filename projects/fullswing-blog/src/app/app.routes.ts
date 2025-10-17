@@ -8,7 +8,7 @@ import { SiteMapComponent as SiteMapPage } from './sitemap/sitemap';
 export const routes: Routes = [
   {
     path: '',
-    component: App
+    component: SiteMapPage
   },
   {
     path: 'sitemap',

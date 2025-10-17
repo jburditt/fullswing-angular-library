@@ -30,7 +30,7 @@ export class Category {
 export const category: CategoryMapping = {
   Angular: new Category('Angular', 'hot-red'),
   TypeScript: new Category('TypeScript', 'bright-blue'),
-  JavaScript: new Category('JavaScript', 'electric-pink'),
+  JavaScript: new Category('JavaScript', 'electric-violet'),
   Azure: new Category('Azure', 'light-blue'),
   GitHub: new Category('GitHub', 'gray-700')
 }
@@ -61,5 +61,27 @@ export class RepositoryService {
 
   getPage(route: string): Blog {
     return this.db.pages[route];
+  }
+
+  getBlogs(): Blog[] {
+    return Object.values(this.db.blogs);
+  }
+
+  getPages(): Blog[] {
+    return Object.values(this.db.pages);
+  }
+
+  getAll(): Blog[] {
+    return this.getBlogs()
+      .concat(this.getPages())
+      .sort((a, b) => {
+        const aTime = a.date instanceof Date ? a.date.getTime() : 0;
+        const bTime = b.date instanceof Date ? b.date.getTime() : 0;
+        return bTime - aTime;
+      });
+  }
+
+  getCategories(): Category[] {
+    return Object.values(category);
   }
 }
