@@ -53,7 +53,14 @@ export class SiteMapComponent {
     let categoryToggle = this.categoryToggles.find(c => c.key == key);
     if (categoryToggle)
       categoryToggle.isActive = !categoryToggle.isActive;
-    this.filteredBlogs = this.blogs.filter((b) => b.categories.every((c) => c in this.categoryToggles.filter((ct) => ct.isActive)));
+
+    const activeCategoryKeys = this.categoryToggles
+      .filter(ct => ct.isActive)
+      .map(ct => ct.key);
+
+    this.filteredBlogs = this.blogs.filter(blog =>
+      !blog.categories || blog.categories.some(ct => activeCategoryKeys.includes(ct))
+    );
   }
 }
 
