@@ -1,10 +1,10 @@
-The following is a documentation template standard for software development that I use on some of my documentation. It helps to add all/most of the sections, since the granular details are often missed and can be crucial for new developers trying to understand the software without the authors background.
+The following is a documentation template standard for software development that I use on some of my documentation. It helps to add all/most of the sections, since the granular details are often missed and can be crucial for new developers trying to understand the software without the original author's background.
 
 ```markdown
 ## OVERVIEW
-This section will have an executive summary and will list any important notes, links to subsections, list of repositories and related applications. For example, in Medweb Cloud I have added a link under notes for another ReadMe.md that pertains to Medweb Cloud RPMs.
+This section will have an executive summary and will list any important notes, links to subsections, list of repositories and related applications.
 
-Repository: <link to gitlab repository>
+Repository: <link to github repository>
 Authors: <author name>
 Version: #.#.#
 
