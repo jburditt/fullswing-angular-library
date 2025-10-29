@@ -32,10 +32,12 @@ export const category: CategoryMapping = {
   TypeScript: new Category('TypeScript', 'bright-blue'),
   JavaScript: new Category('JavaScript', 'electric-violet'),
   Azure: new Category('Azure', 'light-blue'),
-  GitHub: new Category('GitHub', 'gray-700')
+  GitHub: new Category('GitHub', 'gray-700'),
+  Document: new Category('Document', 'gray-700'),
+  Philosophy: new Category('Philosophy', 'gray-700')
 }
 
-export type CategoryType = "Angular" | "TypeScript" | "JavaScript" | 'Azure' | 'GitHub';
+export type CategoryType = "Angular" | "TypeScript" | "JavaScript" | 'Azure' | 'GitHub' | 'Document' | 'Philosophy';
 
 export class Database {
   blogs: { [key: string]: Blog } = {};
