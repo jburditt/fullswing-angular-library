@@ -28,6 +28,7 @@ export class Category {
 }
 
 export const category: CategoryMapping = {
+  CSharp: new Category('CSharp', 'hot-red'),
   Angular: new Category('Angular', 'hot-red'),
   TypeScript: new Category('TypeScript', 'bright-blue'),
   JavaScript: new Category('JavaScript', 'electric-violet'),
@@ -37,7 +38,7 @@ export const category: CategoryMapping = {
   Philosophy: new Category('Philosophy', 'gray-700')
 }
 
-export type CategoryType = "Angular" | "TypeScript" | "JavaScript" | 'Azure' | 'GitHub' | 'Document' | 'Philosophy';
+export type CategoryType = "CSharp" | "Angular" | "TypeScript" | "JavaScript" | 'Azure' | 'GitHub' | 'Document' | 'Philosophy';
 
 export class Database {
   blogs: { [key: string]: Blog } = {};

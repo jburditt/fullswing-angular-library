@@ -22,7 +22,7 @@
       </div>
       <div style="margin-top: 4em;"></div>
       @for (category of this.blogService.categories(); track category.key) {
-        <div class="{{ category.colour }} pill">{{ category.key }}</div>
+        <div class="{{ category.colour }} pill">{{ category.key | category }}</div>
       }
       <div class="clear"></div>
       <h1>{{ this.blogService.title() }}</h1>

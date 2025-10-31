@@ -32,18 +32,15 @@ export function markedOptionsFactory(): MarkedOptions {
 
   renderer.code = ({ text, lang, escaped }) => {
       const args = lang?.split(" ");
-      console.log("args", args);
       let attributes = "";
       let lineNumbers = false;
 
       if (args) {
       for (let arg of args) {
-        console.log("arg", arg);
         if (arg.indexOf("=") > 0) {
           const equation = arg.split("=");
           if (equation[0] == "line") {
             attributes += ' data-line=' + equation[1];
-            console.log("line", attributes);
             lineNumbers = true;
           } else if (equation[0] == "lineOffset") {
             lineNumbers = true;

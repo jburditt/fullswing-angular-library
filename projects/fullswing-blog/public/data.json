@@ -20,6 +20,13 @@
       "categories": ["Philosophy"],
       "author": "Jebb Burditt",
       "date": "Oct 29, 2025"
+    },
+    {
+      "route": "/blog/javascript-csharp",
+      "title": "📝 JavaScript to C# Cheat Sheet",
+      "categories": ["JavaScript", "CSharp", "Document"],
+      "author": "Jebb Burditt",
+      "date": "Oct 31, 2025"
     }
   ],
   "pages": [
