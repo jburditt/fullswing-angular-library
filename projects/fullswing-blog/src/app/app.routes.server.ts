@@ -1,7 +1,12 @@
 import { RenderMode, ServerRoute } from '@angular/ssr';
 
 export const routesIDs: string[] = [
-  'doc-template'
+  'doc-template',
+  'develop-cost',
+  'company-metric',
+  'javascript-csharp',
+  'azure-static-app',
+  'angular-blog',
 ];
 
 export const serverRoutes: ServerRoute[] = [
