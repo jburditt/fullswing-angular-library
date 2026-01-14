@@ -4,8 +4,8 @@ I'm at a stage now, where if I find a new job, it must be similar to that compan
 
 This leads to an important metric I wanted to come up with to evaluate companies during the interview process to determine if they are a company with long-term maintainability efficieny:
 
-- How much can developers influence the sprint? Ideally the developers would 10-20% of technical debt to each script. This commitment will increase long term velocity by at least 2-3 time, see [my post](/blog/develop-cost).
-- How often do you practice TDD?
+- How much can developers influence the sprint? Ideally the developers would add 10-20% of technical debt to each sprint by adding tasks and/or with strong code reviews. This commitment will increase long term velocity by at least 2-3 times, see [my post](/blog/develop-cost). To get a feeling what your current weight is, pick a few distinct features and ask a developer: how much time would it take to fix feature X now and after the code was refactored?
+- How often do you practice TDD? This will help minimize the impact of refactoring
 - Do you have sprint retrospectives? Do you action on the feedback?
 - What is your [Joel test score](https://www.joelonsoftware.com/2000/08/09/the-joel-test-12-steps-to-better-code/)?
 
