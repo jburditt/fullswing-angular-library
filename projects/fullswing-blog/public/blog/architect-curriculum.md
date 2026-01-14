@@ -18,6 +18,8 @@ Learn all of the design patterns and choose some to create examples from and lin
 
 Complete the Microsoft "Solutions Architect" course
 
+[Learn Kafka](https://developer.confluent.io/courses/#fundamentals)
+
 Implement NDepend
 
 Complete AI curriculum
