@@ -7,6 +7,7 @@ export const routesIDs: string[] = [
   'javascript-csharp',
   'azure-static-app',
   'angular-blog',
+  'tdd-benefit',
 ];
 
 export const serverRoutes: ServerRoute[] = [
