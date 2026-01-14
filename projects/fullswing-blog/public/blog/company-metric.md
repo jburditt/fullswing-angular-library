@@ -2,12 +2,12 @@ During my 20+ years of being a software developer, I've encountered only one com
 
 I'm at a stage now, where if I find a new job, it must be similar to that company. I cannot afford to work full-time hours and study 10+ hours a week to stay current because I'm not learning at my current position. Most companies grind you so hard you don't have time to tackle technical debt, 100% of deadlines are missed because they are either superimposed or unrealistic. I've even been in positions where I was hired as a senior and forced to work at a junior level. I often find myself asking: why are you even interviewing for advanced developer skills if you don't give them time or space to use them e.g. TDD, DDD, design patterns, etc. If you don't trust your subject experts, you need to somehow convey the effect that short-term focused goals has on long-term efficiency.
 
-This leads to an important metric I wanted to come up with to evaluate companies during the interview process to determine if they are a company of higher caliber:
+This leads to an important metric I wanted to come up with to evaluate companies during the interview process to determine if they are a company with long-term maintainability efficieny:
 
-- What is your [Joel test score](https://www.joelonsoftware.com/2000/08/09/the-joel-test-12-steps-to-better-code/)?
-- How often do you practice [TDD](/blog/tdd-benefit)?
 - How much can developers influence the sprint? Ideally the developers would 10-20% of technical debt to each script. This commitment will increase long term velocity by at least 2-3 time, see [my post](/blog/develop-cost).
+- How often do you practice TDD?
 - Do you have sprint retrospectives? Do you action on the feedback?
+- What is your [Joel test score](https://www.joelonsoftware.com/2000/08/09/the-joel-test-12-steps-to-better-code/)?
 
 Because I'm vein and love attention, please use/expand on the above list and refer to it as "The Jebb Test".
 
