@@ -24,3 +24,11 @@ Update to latest OAuth https://www.npmjs.com/package/angular-oauth2-oidc
 Add markdown editor with preview
 Enable disqus by updating to Angular 20
 Add share feature
+CMS - Upload files/documents
+CMS - Preview files/documents
+Theming Ideas
+- https://newsletter.pragmaticengineer.com/p/cursor
+- https://newsletter.pragmaticengineer.com/?sort=new
+Admin section with links to Jira, Confluence
+  Authentication access only
+Add Navigation Sections -> Consulting, Blog, Login, Products, Resume/LinkedIn, Github?

@@ -11,9 +11,6 @@ Learn the following:
 
 - [ ] (6 days) Read the entire C# language documentation https://learn.microsoft.com/en-us/dotnet/core/whats-new/dotnet-10/overview
 
-160 remaining (day 2/6)
-
-LINQ - 4/22
 Async - 9
 C# concepts - 13
 How-to C# articles - 7
