@@ -9,6 +9,9 @@ on:
     branches:
       - main
 
+env: 
+  HUGO_VERSION: 0.146.7
+
 jobs:
   deploy_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
