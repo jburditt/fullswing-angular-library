@@ -201,7 +201,10 @@
               "buildTarget": "gamifyworkout:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "proxyConfig": "projects/gamifyworkout/src/proxy.conf.js"
+          }
         },
         "extract-i18n": {
           "builder": "@angular/build:extract-i18n"

@@ -14,7 +14,7 @@ export class JsonConfigService implements ConfigService {
   constructor(private readonly http: HttpClient) { }
 
   public loadConfig$(): Observable<boolean> {
-    return this.http.get('assets/config.json')
+    return this.http.get('config.json')
       .pipe(map((data: any) => {
         this.config = data;
         this.isLoaded$.next(true);
