@@ -1,0 +1,54 @@
+.leftColumn {
+  padding-top: 166px;
+}
+
+.contentColumn {
+  display: inline-block;
+}
+
+.weekdayColumn {
+  min-height: 360px;
+}
+
+.activity {
+  padding: 10px;
+  margin: 0 auto 6px auto;
+  max-width:120px;
+  color: #fff;
+  text-align: center;
+  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+  border: 1px solid #000;
+  border-radius: 4px;
+}
+
+.activity-any {
+  background-color: yellowgreen;
+}
+
+.activity-cardio {
+  background-color: rosybrown;
+}
+
+.activity-core {
+  background-color: brown;
+}
+
+.activity-chest {
+  background-color: cornflowerblue;
+}
+
+.activity-back {
+  background-color: plum;
+}
+
+.activity-shoulders {
+  background-color: indianred;
+}
+
+.activity-arms {
+  background-color: mediumpurple;
+}
+
+.activity-legs {
+  background-color: olive;
+}
