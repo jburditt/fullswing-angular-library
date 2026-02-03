@@ -1,13 +1,13 @@
-name: Azure Static Web Apps CI/CD
+name: Proud Bay Azure Static Web Apps CI/CD
 
 on:
   push:
     branches:
-      - add-gamifyworkout
+      - main_DISABLE
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
-      - add-gamifyworkout
+      - main_DISABLE
 
 jobs:
   build_and_deploy_job:
