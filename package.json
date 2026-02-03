@@ -5,9 +5,12 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:dev": "ng build --configuration development",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:fullswing-blog": "node dist/fullswing-blog/server/server.mjs"
+    "serve:ssr:fullswing-blog": "node dist/fullswing-blog/server/server.mjs",
+    "deploy": "swa deploy ./dist/gamifyworkout/browser --app-name stapp-gamifyworkout --env production",
+    "deploy:local": "swa start ./dist/gamifyworkout/browser"
   },
   "private": true,
   "dependencies": {
@@ -28,6 +31,8 @@
     "angular-oauth2-oidc": "^17.0.1",
     "clipboard": "^2.0.11",
     "express": "^5.1.0",
+    "marked": "^16.4.1",
+    "mermaid": "^11.12.1",
     "ngx-ui-loader": "^19.0.0",
     "prismjs": "^1.30.0",
     "rxjs": "~7.8.0",
@@ -39,6 +44,7 @@
     "@angular/build": "^20.3.15",
     "@angular/cli": "^20.0.2",
     "@angular/compiler-cli": "^20.0.2",
+    "@azure/static-web-apps-cli": "^2.0.8",
     "@types/express": "^5.0.1",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^20.17.19",
