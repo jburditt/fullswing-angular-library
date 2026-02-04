@@ -7,7 +7,12 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:fullswing-blog": "node dist/fullswing-blog/server/server.mjs"
+    "prestart": "node aspnetcore-https",
+    "start:windows": "ng s --port 4200 --ssl --ssl-cert \"%APPDATA%\\ASP.NET\\https\\%npm_package_name%.pem\" --ssl-key \"%APPDATA%\\ASP.NET\\https\\%npm_package_name%.key\" --host=127.0.0.1",
+    "start:default": "ng s --port 4200 --ssl --ssl-cert \"$HOME/.aspnet/https/${npm_package_name}.pem\" --ssl-key \"$HOME/.aspnet/https/${npm_package_name}.key\" --host=127.0.0.1",
+    "serve:ssr:fullswing-blog": "node dist/fullswing-blog/server/server.mjs",
+    "deploy": "swa deploy ./dist/gamifyworkout/browser --api-location ./api --app-name stapp-gamifyworkout --env production --verbose silly",
+    "deploy:local": "swa start ./dist/gamifyworkout/browser --api-location ./api"
   },
   "private": true,
   "dependencies": {

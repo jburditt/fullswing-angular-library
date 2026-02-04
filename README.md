@@ -7,6 +7,13 @@ A library with core components and services needed for OAuth, Forms, Error Handl
 - OAuth authentication
 - Datepicker, Address Form, Validation Message, Textbox
 
+## GamifyWorkout setup
+```bash
+cd projects/gamifyworkout
+git clone https://github.com/jburditt/GamifyWorkout.git .
+```
+See [README](/projects/gamifyworkout/README.md)
+
 # TODO
 
 Update SiteMap links

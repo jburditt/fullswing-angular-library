@@ -1,3 +1,12 @@
+# in development
+/projects/fullswing-blog/src/app/markdown
+
+# Shared repositories
+/projects/gamifyworkout/**
+
+# VS Code
+/.vscode/
+
 # Angular specific
 /dist/
 /out-tsc/
@@ -5,7 +14,6 @@
 /coverage/
 /e2e/test-output/
 /.angular/
-.angular/
 
 # Node modules and dependency files
 /**/node_modules/
@@ -26,3 +34,4 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.vscode/extensions.json
