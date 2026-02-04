@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/animations": "^20.3.16",
     "@angular/build": "^20.0.1",
     "@angular/common": "^20.0.2",
     "@angular/compiler": "^20.0.2",
@@ -22,6 +23,7 @@
     "@angular/platform-server": "^20.0.2",
     "@angular/router": "^20.0.2",
     "@angular/ssr": "^20.3.5",
+    "@ngrx/store": "^20.0.1",
     "@ngworker/lumberjack": "^20.0.0",
     "@ngxpert/hot-toast": "^5.1.1",
     "angular-oauth2-oidc": "^17.0.1",
@@ -29,6 +31,7 @@
     "express": "^5.1.0",
     "marked": "^16.4.0",
     "ngx-markdown": "^20.1.0",
+    "ngx-ui-loader": "^19.0.0",
     "prismjs": "^1.30.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
