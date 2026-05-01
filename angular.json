@@ -230,6 +230,140 @@
           }
         }
       }
+    },
+    "angular-bootstrap": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/angular-bootstrap",
+      "sourceRoot": "projects/angular-bootstrap/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "outputPath": {
+              "base": "dist/angular-bootstrap"
+            },
+            "index": "projects/angular-bootstrap/src/index.html",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/angular-bootstrap/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/angular-bootstrap/src/app/shared/template/assets",
+                "output": "/assets/"
+              },
+              "projects/angular-bootstrap/src/favicon.ico",
+              "projects/angular-bootstrap/src/assets"
+            ],
+            "styles": [
+              "projects/angular-bootstrap/src/styles.scss",
+              //"node_modules/survey-core/survey-core.min.css"
+            ],
+            "scripts": [],
+            "browser": "projects/angular-bootstrap/src/main.ts"
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "1mb",
+                  "maximumError": "2mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "angular-bootstrap:build:production"
+            },
+            "development": {
+              "buildTarget": "angular-bootstrap:build:development"
+            }
+          },
+          "defaultConfiguration": "development",
+          "options": {
+            "proxyConfig": "projects/angular-bootstrap/src/proxy.conf.js",
+            "ssl": true,
+            "sslKey": "projects/angular-bootstrap/ssl/localhost.key",
+            "sslCert": "projects/angular-bootstrap/ssl/localhost.crt"
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular/build:extract-i18n",
+          "options": {
+            "buildTarget": "angular-bootstrap:build"
+          }
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "tsconfig.spec.json",
+            "assets": [
+              "projects/angular-bootstrap/src/favicon.ico",
+              "projects/angular-bootstrap/src/assets"
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
+            "scripts": [],
+            "karmaConfig": "karma.conf.js"
+          }
+        },
+        "storybook": {
+          "builder": "@storybook/angular:start-storybook",
+          "options": {
+            "configDir": ".storybook",
+            "browserTarget": "angular-bootstrap:build",
+            "compodoc": true,
+            "compodocArgs": [
+              "-e",
+              "json",
+              "-d",
+              "."
+            ],
+            "port": 6006
+          }
+        },
+        "build-storybook": {
+          "builder": "@storybook/angular:build-storybook",
+          "options": {
+            "configDir": ".storybook",
+            "browserTarget": "angular-bootstrap:build",
+            "compodoc": true,
+            "compodocArgs": [
+              "-e",
+              "json",
+              "-d",
+              "."
+            ],
+            "outputDir": "storybook-static"
+          }
+        }
+      }
     }
   }
 }
