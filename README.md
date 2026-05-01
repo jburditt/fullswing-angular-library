@@ -7,12 +7,19 @@ A library with core components and services needed for OAuth, Forms, Error Handl
 - OAuth authentication
 - Datepicker, Address Form, Validation Message, Textbox
 
-## GamifyWorkout setup
+## Gamify Workout setup
 ```bash
 cd projects/gamifyworkout
 git clone https://github.com/jburditt/GamifyWorkout.git .
 ```
 See [README](/projects/gamifyworkout/README.md)
+
+## Angular Bootstrap setup
+```bash
+cd projects/angular-bootstrap
+git clone https://github.com/jburditt/Angular-Bootstrap.git .
+```
+See [README](/projects/angular-bootstrap/README.md)
 
 # TODO
 
