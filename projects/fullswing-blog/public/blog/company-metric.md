@@ -12,8 +12,7 @@ This leads to an important metric I wanted to come up with to evaluate companies
 - What is your [Joel test score](https://www.joelonsoftware.com/2000/08/09/the-joel-test-12-steps-to-better-code/)?
 - Are you paying above average salaries? This is an indicator of efficiency and helps retain higher quality employees
 - Do stakeholders and management have visibility to metrics that measure long term efficiency? See above for examples
-
-Because I'm vein and love attention, please use/expand on the above list and refer to it as "The Jebb Test".
+- Is technical debt included in your estimates? At the bare minimum, you should be eliminating as much technical debt as you are adding
 
 Quote from the book "The Clean Architect by Robert C. Martin":
 
