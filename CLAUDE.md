@@ -102,6 +102,8 @@ Tests use **Karma + Jasmine** (current setup). The `TestProvider` module in `src
 
 Spec files live adjacent to their source files. Run a single spec with `--include`.
 
+**After implementing any new feature**, add behavioral unit tests that verify observable outcomes — what the component renders, what actions are dispatched, what outputs are emitted — not implementation details like private method calls or internal state. Tests should read like a description of the feature's contract.
+
 ## Feature Specs
 
 GamifyWorkout requirements live in `projects/gamifyworkout/SPECS/`. Start with `SPECS_INDEX.md` for navigation. Each spec includes API contracts, data models, component specs, and code generation notes for AI. The `today-schedule.md` spec is in **Design** status — the `AddExerciseComponent` dialog is not yet ready to implement.

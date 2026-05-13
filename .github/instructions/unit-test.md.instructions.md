@@ -78,3 +78,5 @@ describe('User Component', () => {
   });
 });
 ```
+
+**After implementing any new feature**, add behavioral unit tests that verify observable outcomes — what the component renders, what actions are dispatched, what outputs are emitted — not implementation details like private method calls or internal state. Tests should read like a description of the feature's contract.

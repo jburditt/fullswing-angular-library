@@ -110,3 +110,10 @@ describe('User Component', () => {
 I was not following TDD practices, so next I asked Copilot to write unit tests for the entire app.
 
 > /tests Generate unit tests for all features of the app Gamify Workout
+
+## Agent Workflow Ideas/Todos
+
+- Unit test runner and/or verification and update broken unit tests
+- Document features and update the documentation on feature changes
+- Code review on PR
+
