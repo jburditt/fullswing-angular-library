@@ -2,6 +2,12 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Coding Standards
+
+Before writing or modifying any code, read all files in:
+- `.github/instructions/` — coding standards and Angular best practices
+- `.github/skills/` — Angular skill references (components, signals, forms, routing, testing, etc.)
+
 ## Workspace Structure
 
 This is an Angular CLI workspace (`angular.json`) with three projects under `projects/`:
@@ -86,7 +92,6 @@ app/
 
 ## Component Conventions
 
-- **Always use external files**: `templateUrl` and `styleUrls` (never inline `template` or `styles`)
 - Place `.html` and `.scss` files adjacent to the `.ts` file with the same base name
 - Use SCSS for styles
 - Standalone components only — do **not** set `standalone: true` in the decorator (it is the default in Angular 20)
@@ -98,7 +103,7 @@ app/
 
 ## Testing
 
-Tests use **Karma + Jasmine** (current setup). The `TestProvider` module in `src/app/test-provider.ts` supplies the standard set of DI providers for component tests — import it alongside the component under test.
+The `TestProvider` module in `src/app/test-provider.ts` supplies the standard set of DI providers for component tests — import it alongside the component under test.
 
 Spec files live adjacent to their source files. Run a single spec with `--include`.
 
@@ -106,4 +111,4 @@ Spec files live adjacent to their source files. Run a single spec with `--includ
 
 ## Feature Specs
 
-GamifyWorkout requirements live in `projects/gamifyworkout/SPECS/`. Start with `SPECS_INDEX.md` for navigation. Each spec includes API contracts, data models, component specs, and code generation notes for AI. The `today-schedule.md` spec is in **Design** status — the `AddExerciseComponent` dialog is not yet ready to implement.
+GamifyWorkout requirements live in `projects/gamifyworkout/SPECS/`. Start with `SPECS_INDEX.md` for navigation. Each spec includes API contracts, component specs, and code generation notes for AI. The `today-schedule.md` spec is in **Design** status
