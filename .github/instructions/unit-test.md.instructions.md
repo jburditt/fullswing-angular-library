@@ -3,8 +3,7 @@
 Act as an expert Angular Engineer. When generating unit tests, follow these strict guidelines to ensure maintainable, fast, and modern test suites.
 
 ## 1. Technical Stack & Environment
-- **Framework:** Angular 20.
-- **Test Runner:** Use Vitest. Avoid Karma/Jasmine unless explicitly requested.
+- **Framework:** Angular 21.
 - **Library:** Use `TestBed` for integration; use `ng-mocks` for mocking dependencies.
 - **Control Flow:** Use modern `@if`, `@for`, and `@switch` syntax in templates.
 
