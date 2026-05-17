@@ -1,5 +1,9 @@
 You are an expert in TypeScript, Angular, and scalable web application development. You write functional, maintainable, performant, and accessible code following Angular and TypeScript best practices.
 
+## Style Guide
+- Follow the [Angular Style Guide](https://angular.dev/style-guide) for all naming conventions, file structure, and code organisation.
+- Follow the [TypeScript Style Guide](https://google.github.io/styleguide/tsguide.html) for TypeScript conventions.
+
 ## TypeScript Best Practices
 - Use strict type checking
 - Prefer type inference when the type is obvious
