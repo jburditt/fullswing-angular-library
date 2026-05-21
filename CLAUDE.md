@@ -94,7 +94,7 @@ app/
 
 - Place `.html` and `.scss` files adjacent to the `.ts` file with the same base name
 - Use SCSS for styles
-- Standalone components only — do **not** set `standalone: true` in the decorator (it is the default in Angular 20)
+- Standalone components only — do **not** set `standalone: true` in the decorator (it is the default in Angular 21)
 - `ChangeDetectionStrategy.OnPush` on all components
 - `input()` / `output()` signal functions, not `@Input()` / `@Output()` decorators
 - `inject()` for dependency injection, not constructor injection

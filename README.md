@@ -36,7 +36,7 @@ Add newsletter subscribe feature
 Add Schematics e.g. ng add blog blog-name, ng add page page-name
 Update to latest OAuth https://www.npmjs.com/package/angular-oauth2-oidc
 Add markdown editor with preview
-Enable disqus by updating to Angular 20
+Enable disqus by updating to Angular 21
 Add share feature
 CMS - Upload files/documents
 CMS - Preview files/documents
