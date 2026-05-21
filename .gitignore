@@ -4,6 +4,9 @@
 # Shared repositories
 /projects/gamifyworkout/**
 
+# AI
+/.claude/
+
 # VS Code
 /.vscode/
 

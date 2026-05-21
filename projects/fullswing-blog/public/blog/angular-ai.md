@@ -25,7 +25,7 @@ Add `.github/instructions/unit-test.md.instructions`
 Act as an expert Angular Engineer. When generating unit tests, follow these strict guidelines to ensure maintainable, fast, and modern test suites.
 
 ## 1. Technical Stack & Environment
-- **Framework:** Angular 20.
+- **Framework:** Angular 21.
 - **Test Runner:** Use Vitest. Avoid Karma/Jasmine unless explicitly requested.
 - **Library:** Use `TestBed` for integration; use `ng-mocks` for mocking dependencies.
 - **Control Flow:** Use modern `@if`, `@for`, and `@switch` syntax in templates.
@@ -110,6 +110,44 @@ describe('User Component', () => {
 I was not following TDD practices, so next I asked Copilot to write unit tests for the entire app.
 
 > /tests Generate unit tests for all features of the app Gamify Workout
+
+## Claude
+
+- Open ~/.claude.json and add the following to the relevant project:
+```json
+"mcpServers": {
+  "angular-cli": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "@angular/cli",
+      "mcp",
+      "--experimental-tool",
+      "modernize"
+    ]
+  }
+},
+```
+
+- Add the following permissions to speed up Claude's process but still lock down on security risks:
+```json
+{
+  "permissions": {
+    "allow": [
+      "Skill(update-config)",
+      "PowerShell(Get-ChildItem *)",
+      "Bash(git checkout *)",
+      "Bash(git pull)",
+      "Bash(git add *)",
+      "Bash(gh pr view *)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(git push --force *)"
+    ]
+  }
+}
+```
 
 ## Agent Workflow Ideas/Todos
 
