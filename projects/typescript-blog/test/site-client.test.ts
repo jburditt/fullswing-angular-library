@@ -18,8 +18,8 @@ class FakeButton {
     this.clickHandler = handler;
   }
 
-  click(): void {
-    this.clickHandler?.();
+  click(): Promise<void> | void {
+    return this.clickHandler?.();
   }
 
   getAttribute(name: string): string | null {
@@ -182,4 +182,36 @@ test('setupCopyButtons should announce copy failures', async () => {
   runtimeWindow.flush();
   assert.equal(button.textContent, 'Copy');
   assert.equal(status.textContent, '');
+});
+
+test('setupMermaidExtensionPoint should expose a hook and auto-run Mermaid when available', async () => {
+  const moduleUrl = new URL('../../src/assets/site.js', import.meta.url).href;
+  const { setupMermaidExtensionPoint } = await import(moduleUrl);
+
+  const mermaidBlock = { textContent: 'graph TD;' };
+  let enhancedNodes: unknown;
+  let runNodes: unknown;
+  const fakeWindow = {
+    mermaid: {
+      run({ nodes }: { nodes: unknown }) {
+        runNodes = nodes;
+      },
+    },
+    typescriptBlog: undefined as
+      | undefined
+      | { enhanceMermaid?: (enhancer: (nodes: unknown) => void) => void },
+  };
+  const document = {
+    querySelectorAll(selector: string) {
+      return selector === 'pre.mermaid' ? [mermaidBlock] : [];
+    },
+  };
+
+  setupMermaidExtensionPoint(document, fakeWindow);
+  fakeWindow.typescriptBlog?.enhanceMermaid?.(nodes => {
+    enhancedNodes = nodes;
+  });
+
+  assert.deepEqual(runNodes, [mermaidBlock]);
+  assert.deepEqual(enhancedNodes, [mermaidBlock]);
 });

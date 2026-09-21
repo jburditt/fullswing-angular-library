@@ -56,7 +56,11 @@ function scheduleReset(button, status, runtimeWindow) {
   resetTimers.set(button, timer);
 }
 
-export function setupCopyButtons(doc = document, clipboard = navigator.clipboard, runtimeWindow = window) {
+export function setupCopyButtons(
+  doc = document,
+  clipboard = typeof navigator !== 'undefined' ? navigator.clipboard : undefined,
+  runtimeWindow = window
+) {
   const status = doc.getElementById('copy-status');
 
   doc.querySelectorAll('[data-copy-code]').forEach(button => {
@@ -66,6 +70,16 @@ export function setupCopyButtons(doc = document, clipboard = navigator.clipboard
       const text = [...(lines ?? [])].map(line => line.textContent ?? '').join('\n');
 
       if (!text) {
+        return;
+      }
+
+      if (!clipboard?.writeText) {
+        button.dataset.copied = 'false';
+        button.textContent = 'Copy unavailable';
+        if (status) {
+          status.textContent = 'Clipboard access is unavailable in this browser.';
+        }
+        scheduleReset(button, status, runtimeWindow);
         return;
       }
 

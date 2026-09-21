@@ -27,6 +27,7 @@ function renderCategoryPills(categories: string[]): string {
 
 export function renderLayout(options: LayoutOptions): string {
   const { assetPrefix, pageTitle, title, content, author, date, categories = [] } = options;
+  const escapedAssetPrefix = escapeHtml(assetPrefix);
   const headingMeta = author || date ? `
     <p class="page-meta">
       ${author ? `<span>${escapeHtml(author)}</span>` : ''}
@@ -41,22 +42,22 @@ export function renderLayout(options: LayoutOptions): string {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>${escapeHtml(pageTitle)}</title>
-    <link rel="icon" href="${assetPrefix}brand.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="${assetPrefix}assets/site.css" />
+    <link rel="icon" href="${escapedAssetPrefix}brand.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="${escapedAssetPrefix}assets/site.css" />
   </head>
   <body>
     <div class="shell">
       <header class="site-header">
-        <a class="brand" href="${assetPrefix}">
-          <img src="${assetPrefix}brand.svg" alt="Fullswing" width="48" height="48" />
+        <a class="brand" href="${escapedAssetPrefix}">
+          <img src="${escapedAssetPrefix}brand.svg" alt="Fullswing" width="48" height="48" />
           <span>
             <strong>Fullswing</strong>
             <small>TypeScript Blog</small>
           </span>
         </a>
         <nav aria-label="Primary">
-          <a href="${assetPrefix}">Home</a>
-          <a href="${assetPrefix}sitemap/">Sitemap</a>
+          <a href="${escapedAssetPrefix}">Home</a>
+          <a href="${escapedAssetPrefix}sitemap/">Sitemap</a>
           <a href="https://github.com/jburditt" rel="noopener noreferrer">GitHub</a>
         </nav>
       </header>
@@ -72,7 +73,7 @@ export function renderLayout(options: LayoutOptions): string {
       </main>
       <p id="copy-status" class="visually-hidden" role="status" aria-live="polite"></p>
     </div>
-    <script type="module" src="${assetPrefix}assets/site.js"></script>
+    <script type="module" src="${escapedAssetPrefix}assets/site.js"></script>
   </body>
 </html>`;
 }
