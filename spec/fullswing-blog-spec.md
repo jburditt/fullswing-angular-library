@@ -1,13 +1,14 @@
 # fullswing-blog Specification
 
 ## Overview
-fullswing-blog is a headless blog application built in an Angular workspace. It renders blog content from markdown files and supports advanced pages written directly as Angular components. Content metadata (title, categories, author, date, route) is centralized in `public/data.json` and is used for sitemap, filtering, and page header rendering.
+fullswing-blog is a headless blog application built in an Angular workspace. It renders blog content from markdown files and supports advanced pages written directly as Angular components. For the `typescript-blog` migration, content metadata (title, categories, author, date, route) should live in JSON sidecar files that share the same basename as the content they describe, and that metadata should drive sitemap generation, filtering, and page header rendering.
 
 ## Goals
 - Serve static and pre-rendered blog content quickly.
 - Keep authoring simple for markdown-driven posts.
 - Support richer, component-based pages when markdown is not sufficient.
 - Expose category metadata for filtering and visual tags.
+- Avoid maintaining a centralized metadata index file.
 
 ## Project Location
 - Application root: `projects/fullswing-blog`
@@ -41,11 +42,12 @@ Defined in `src/app/app.routes.ts`:
 ## Content Model
 
 ### Metadata Source
-- File: `public/data.json`
-- Structure:
-  - `blogs[]`: markdown-backed posts
-  - `pages[]`: component-backed pages
-- Common fields:
+- Metadata should not come from a shared `data.json` file.
+- Each content item should have a JSON metadata file with the same basename as the file or page it describes.
+- Example markdown pairing:
+  - `public/blog/doc-template.md`
+  - `public/blog/doc-template.json`
+- The JSON sidecar should contain:
   - `route`
   - `title`
   - `categories[]`
@@ -53,14 +55,15 @@ Defined in `src/app/app.routes.ts`:
   - `date`
 
 ### Repository Layer
-- File: `src/app/db/db.ts`
-- `RepositoryService` loads `data.json` into in-memory maps and provides:
+- Current file: `src/app/db/db.ts`
+- `RepositoryService` currently builds blog/page collections and provides:
   - `getBlog(route)`
   - `getPage(route)`
   - `getBlogs()`
   - `getPages()`
   - `getAll()` sorted by date descending
   - `getCategories()`
+- In `typescript-blog`, the equivalent repository layer should discover and load same-basename JSON metadata files instead of reading a centralized index.
 
 ### Category System
 - Category type union and color mapping are defined in `src/app/db/db.ts`.
@@ -71,20 +74,20 @@ Defined in `src/app/app.routes.ts`:
 ### Markdown Blog Flow
 1. Route `/blog/:id` loads `Blog` component (`src/app/blog/blog.ts`).
 2. Component computes markdown source path: `blog/<id>.md`.
-3. Component loads metadata by route (`/blog/<id>`) via `RepositoryService`.
+3. The metadata loader resolves the matching `blog/<id>.json` file.
 4. `BlogService` publishes metadata (title, categories, author, date) to shell.
 5. `ngx-markdown` renders markdown from `/public/blog/*.md`.
 
 ### Component Page Flow
 1. Static route loads page component under `src/app/page/*`.
 2. Page component extends `BlogPage` helper from `blog.service.ts`.
-3. `BlogPage` resolves metadata via `RepositoryService.getPage(route)`.
+3. The metadata loader resolves the JSON metadata file for that page using the same basename convention.
 4. `BlogService` publishes metadata to shell.
 5. Component template renders rich/static HTML and optional code blocks.
 
 ### Sitemap Flow
 - Component: `src/app/sitemap/sitemap.ts`
-- Reads all entries from `RepositoryService.getAll()`.
+- Reads all discovered metadata entries from the repository layer.
 - Supports category toggles to filter visible links.
 
 ## Markdown and Code Features
@@ -113,24 +116,24 @@ Configured in `angular.json` for `fullswing-blog` build:
 
 ## Static Assets and Content
 - Content directory: `public/blog/*.md`
+- Metadata sidecars: `public/blog/*.json` and equivalent same-basename page metadata files
 - Images/assets: `public/logo.jpg`, `public/avatar.png`, etc.
-- Blog metadata index: `public/data.json`
 
-## How New Content Is Added (Current Behavior)
+## How New Content Is Added
 For a new markdown post:
 1. Add markdown file to `public/blog/`.
-2. Add route metadata entry to `public/data.json` in `blogs[]`.
-3. Ensure route is reachable through `/blog/:id` using filename/id convention.
+2. Add a JSON metadata file with the same basename in `public/blog/`.
+3. Ensure the route in the metadata matches the filename/id convention.
 4. Add matching `id` to prerender `routesIDs` in `app.routes.server.ts`.
 
 For a new component page:
 1. Create page component under `src/app/page/<page-name>/`.
 2. Add explicit route entry in `app.routes.ts`.
-3. Add metadata entry in `public/data.json` in `pages[]`.
+3. Add a JSON metadata file with the same basename as the page it describes.
 4. If using `/blog/:id` style prerendering, update server prerender params accordingly.
 
 ## Constraints to Preserve for TypeScript-Blog Migration
-- Must keep metadata-driven model (`data.json` equivalent).
+- Must keep a metadata-driven model, but metadata should come from same-basename JSON files rather than a centralized index.
 - Must preserve route-to-content mapping for both markdown posts and richer pages.
 - Must keep sitemap generation and category-based filtering.
 - Must keep markdown rendering with syntax highlighting, line numbers, and line highlight support.
@@ -141,9 +144,9 @@ For a new component page:
   - `/sitemap`
 
 ## Known Gaps / Risks in Current Implementation
-- Prerender IDs are hard-coded and can drift from `data.json`.
-- Some markdown files exist in `public/blog` that are not indexed in `data.json`.
-- Date values are string-based in `data.json`, while sorting logic assumes date-like values.
+- Prerender IDs are hard-coded and can drift from the available metadata files.
+- Content files and JSON metadata sidecars can drift if one exists without the other.
+- Date values are string-based in JSON metadata, while sorting logic assumes date-like values.
 
 ## Initial Migration Notes (Step 1 Context)
-This spec captures the current fullswing-blog behavior and structure so a new `typescript-blog` project can replicate functionality without Angular, while preserving content model, URL structure, and rendering features.
+This spec captures the fullswing-blog behavior and the target metadata model so a new `typescript-blog` project can replicate functionality without Angular while using same-basename JSON metadata files instead of a centralized `data.json` index.
