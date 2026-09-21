@@ -18,7 +18,7 @@ export function getOutputPath(route: string, distDirectory: string): string {
 
 export function getAssetPrefix(route: string): string {
   const segments = getRouteSegments(route);
-  return '../'.repeat(segments.length);
+  return segments.length === 0 ? './' : '../'.repeat(segments.length);
 }
 
 export function getRelativeHref(fromRoute: string, toRoute: string): string {

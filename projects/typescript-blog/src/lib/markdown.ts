@@ -126,7 +126,6 @@ function renderCodeBlock(code: string, rawInfo: string | undefined): string {
 
 const marked = new Marked({
   gfm: true,
-  breaks: true,
 });
 
 marked.use({
