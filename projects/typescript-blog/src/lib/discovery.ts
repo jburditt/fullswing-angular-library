@@ -20,9 +20,10 @@ function formatOrphanMessage(kind: 'blog markdown' | 'blog metadata' | 'page ren
 }
 
 export async function discoverBlogs(blogDirectory: string): Promise<BlogEntry[]> {
-  const entries = await readdir(blogDirectory);
-  const markdownBasenames = getSortedBasenames(entries, '.md');
-  const metadataBasenames = getSortedBasenames(entries, '.json');
+  const entries = await readdir(blogDirectory, { withFileTypes: true });
+  const fileNames = entries.filter(entry => entry.isFile()).map(entry => entry.name);
+  const markdownBasenames = getSortedBasenames(fileNames, '.md');
+  const metadataBasenames = getSortedBasenames(fileNames, '.json');
 
   const orphanMarkdown = getOrphans(markdownBasenames, metadataBasenames);
   const orphanMetadata = getOrphans(metadataBasenames, markdownBasenames);
@@ -54,12 +55,13 @@ export async function discoverBlogs(blogDirectory: string): Promise<BlogEntry[]>
 }
 
 export async function discoverPages(sourcePagesDirectory: string, compiledPagesDirectory: string): Promise<PageEntry[]> {
-  const entries = await readdir(sourcePagesDirectory);
+  const entries = await readdir(sourcePagesDirectory, { withFileTypes: true });
+  const fileNames = entries.filter(entry => entry.isFile()).map(entry => entry.name);
   const rendererBasenames = getSortedBasenames(
-    entries.filter(entry => !entry.endsWith('.d.ts')),
+    fileNames.filter(entry => !entry.endsWith('.d.ts')),
     '.ts'
   );
-  const metadataBasenames = getSortedBasenames(entries, '.json');
+  const metadataBasenames = getSortedBasenames(fileNames, '.json');
 
   const orphanRenderers = getOrphans(rendererBasenames, metadataBasenames);
   const orphanMetadata = getOrphans(metadataBasenames, rendererBasenames);

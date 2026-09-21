@@ -51,7 +51,7 @@ export function renderLayout(options: LayoutOptions): string {
   <body>
     <div class="shell">
       <header class="site-header">
-        <a class="brand" href="${escapedAssetPrefix}">
+        <a class="brand" href="${homeHref}">
           <img src="${escapedAssetPrefix}brand.svg" alt="Fullswing" width="48" height="48" />
           <span>
             <strong>Fullswing</strong>

@@ -1,4 +1,4 @@
-import { cp, mkdir, readdir, stat } from 'node:fs/promises';
+import { cp, lstat, mkdir, readdir, stat } from 'node:fs/promises';
 import { dirname, extname, join } from 'node:path';
 
 const EXCLUDED_PUBLIC_EXTENSIONS = new Set(['.html', '.json', '.md']);
@@ -15,6 +15,11 @@ async function copyPublicAssets(sourceDirectory: string, destinationDirectory: s
   for (const entry of entries) {
     const sourcePath = join(sourceDirectory, entry.name);
     const destinationPath = join(destinationDirectory, entry.name);
+    const entryStat = await lstat(sourcePath);
+
+    if (entryStat.isSymbolicLink()) {
+      continue;
+    }
 
     if (entry.isDirectory()) {
       await copyPublicAssets(sourcePath, destinationPath);
@@ -37,14 +42,19 @@ async function copyGeneratedAssets(sourceDirectory: string, destinationDirectory
   for (const entry of entries) {
     const sourcePath = join(sourceDirectory, entry.name);
     const destinationPath = join(destinationDirectory, entry.name);
+    const entryStat = await lstat(sourcePath);
+
+    if (entryStat.isSymbolicLink()) {
+      continue;
+    }
 
     if (entry.isDirectory()) {
       await copyGeneratedAssets(sourcePath, destinationPath);
       continue;
     }
 
-    const entryStat = await stat(sourcePath);
-    if (!entryStat.isFile()) {
+    const fileStat = await stat(sourcePath);
+    if (!fileStat.isFile()) {
       continue;
     }
 
