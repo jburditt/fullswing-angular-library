@@ -33,6 +33,8 @@ function setupCategoryFilters() {
 }
 
 function setupCopyButtons() {
+  const status = document.getElementById('copy-status');
+
   document.querySelectorAll('[data-copy-code]').forEach(button => {
     button.addEventListener('click', async () => {
       const container = button.closest('pre');
@@ -46,9 +48,15 @@ function setupCopyButtons() {
       await navigator.clipboard.writeText(text);
       button.dataset.copied = 'true';
       button.textContent = 'Copied';
+      if (status) {
+        status.textContent = 'Code copied to clipboard.';
+      }
       window.setTimeout(() => {
         button.dataset.copied = 'false';
         button.textContent = 'Copy';
+        if (status) {
+          status.textContent = '';
+        }
       }, 1500);
     });
   });

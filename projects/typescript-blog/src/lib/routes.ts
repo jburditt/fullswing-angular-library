@@ -22,9 +22,9 @@ export function getAssetPrefix(route: string): string {
 }
 
 export function getRelativeHref(fromRoute: string, toRoute: string): string {
-  const fromDirectory = getRouteSegments(fromRoute).join('/');
-  const toDirectory = getRouteSegments(toRoute).join('/');
-  const relativePath = path.posix.relative(fromDirectory || '.', toDirectory || '.');
+  const fromDirectory = path.posix.dirname(getOutputPath(fromRoute, '/dist'));
+  const toDirectory = path.posix.dirname(getOutputPath(toRoute, '/dist'));
+  const relativePath = path.posix.relative(fromDirectory, toDirectory);
 
   if (!relativePath || relativePath === '') {
     return './';

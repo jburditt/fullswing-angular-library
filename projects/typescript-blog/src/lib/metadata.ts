@@ -16,6 +16,10 @@ function assertCategories(value: unknown, filePath: string): string[] {
     throw new Error(`Metadata file ${filePath} must contain a \"categories\" array.`);
   }
 
+  if (value.length === 0) {
+    throw new Error(`Metadata file ${filePath} must contain at least one category.`);
+  }
+
   const categories = value.map((entry, index) => {
     if (typeof entry !== 'string' || entry.trim().length === 0) {
       throw new Error(`Metadata file ${filePath} has an invalid categories[${index}] value.`);

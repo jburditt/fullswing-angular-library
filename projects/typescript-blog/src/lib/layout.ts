@@ -70,6 +70,7 @@ export function renderLayout(options: LayoutOptions): string {
           </div>
         </article>
       </main>
+      <p id="copy-status" class="visually-hidden" role="status" aria-live="polite"></p>
     </div>
     <script type="module" src="${assetPrefix}assets/site.js"></script>
   </body>

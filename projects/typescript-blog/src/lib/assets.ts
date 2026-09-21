@@ -1,7 +1,7 @@
 import { cp, mkdir, readdir, stat } from 'node:fs/promises';
 import { dirname, extname, join } from 'node:path';
 
-const CONTENT_EXTENSIONS = new Set(['.md', '.json']);
+const EXCLUDED_PUBLIC_EXTENSIONS = new Set(['.html', '.json', '.md']);
 
 export async function copyProjectAssets(publicDirectory: string, sourceAssetsDirectory: string, distDirectory: string): Promise<void> {
   await copyPublicAssets(publicDirectory, distDirectory);
@@ -21,7 +21,7 @@ async function copyPublicAssets(sourceDirectory: string, destinationDirectory: s
       continue;
     }
 
-    if (CONTENT_EXTENSIONS.has(extname(entry.name))) {
+    if (EXCLUDED_PUBLIC_EXTENSIONS.has(extname(entry.name))) {
       continue;
     }
 

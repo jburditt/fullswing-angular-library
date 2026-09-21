@@ -104,6 +104,20 @@ body {
 
 .filter-chip[aria-pressed="false"] {
   opacity: 0.45;
+  border-style: dashed;
+}
+
+.filter-chip::before {
+  display: inline-block;
+  min-width: 1rem;
+}
+
+.filter-chip[aria-pressed="true"]::before {
+  content: "✓";
+}
+
+.filter-chip[aria-pressed="false"]::before {
+  content: "✕";
 }
 
 .lede {
@@ -193,6 +207,18 @@ pre.mermaid {
 
 [hidden] {
   display: none !important;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .token.comment,
