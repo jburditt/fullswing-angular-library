@@ -1,0 +1,54 @@
+import { cp, mkdir, readdir, stat } from 'node:fs/promises';
+import { dirname, extname, join } from 'node:path';
+
+const CONTENT_EXTENSIONS = new Set(['.md', '.json']);
+
+export async function copyProjectAssets(publicDirectory: string, sourceAssetsDirectory: string, distDirectory: string): Promise<void> {
+  await copyPublicAssets(publicDirectory, distDirectory);
+  await copyGeneratedAssets(sourceAssetsDirectory, join(distDirectory, 'assets'));
+}
+
+async function copyPublicAssets(sourceDirectory: string, destinationDirectory: string): Promise<void> {
+  await mkdir(destinationDirectory, { recursive: true });
+  const entries = await readdir(sourceDirectory, { withFileTypes: true });
+
+  for (const entry of entries) {
+    const sourcePath = join(sourceDirectory, entry.name);
+    const destinationPath = join(destinationDirectory, entry.name);
+
+    if (entry.isDirectory()) {
+      await copyPublicAssets(sourcePath, destinationPath);
+      continue;
+    }
+
+    if (CONTENT_EXTENSIONS.has(extname(entry.name))) {
+      continue;
+    }
+
+    await mkdir(dirname(destinationPath), { recursive: true });
+    await cp(sourcePath, destinationPath, { force: true });
+  }
+}
+
+async function copyGeneratedAssets(sourceDirectory: string, destinationDirectory: string): Promise<void> {
+  await mkdir(destinationDirectory, { recursive: true });
+  const entries = await readdir(sourceDirectory, { withFileTypes: true });
+
+  for (const entry of entries) {
+    const sourcePath = join(sourceDirectory, entry.name);
+    const destinationPath = join(destinationDirectory, entry.name);
+
+    if (entry.isDirectory()) {
+      await copyGeneratedAssets(sourcePath, destinationPath);
+      continue;
+    }
+
+    const entryStat = await stat(sourcePath);
+    if (!entryStat.isFile()) {
+      continue;
+    }
+
+    await mkdir(dirname(destinationPath), { recursive: true });
+    await cp(sourcePath, destinationPath, { force: true });
+  }
+}
