@@ -47,7 +47,7 @@ export function renderLayout(options: LayoutOptions): string {
   <body>
     <div class="shell">
       <header class="site-header">
-        <a class="brand" href="${assetPrefix}index.html">
+        <a class="brand" href="${assetPrefix}">
           <img src="${assetPrefix}brand.svg" alt="Fullswing" width="48" height="48" />
           <span>
             <strong>Fullswing</strong>
@@ -55,7 +55,7 @@ export function renderLayout(options: LayoutOptions): string {
           </span>
         </a>
         <nav aria-label="Primary">
-          <a href="${assetPrefix}index.html">Home</a>
+          <a href="${assetPrefix}">Home</a>
           <a href="${assetPrefix}sitemap/">Sitemap</a>
           <a href="https://github.com/jburditt" rel="noopener noreferrer">GitHub</a>
         </nav>

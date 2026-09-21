@@ -102,6 +102,12 @@ body {
   cursor: pointer;
 }
 
+.filter-chip:focus-visible,
+.copy-code:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .filter-chip[aria-pressed="false"] {
   opacity: 0.45;
   border-style: dashed;

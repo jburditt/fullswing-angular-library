@@ -36,7 +36,27 @@ export function setupCategoryFilters(doc = document) {
   update();
 }
 
-export function setupCopyButtons(doc = document, clipboard = navigator.clipboard) {
+const resetTimers = new WeakMap();
+
+function scheduleReset(button, status, runtimeWindow) {
+  const existingTimer = resetTimers.get(button);
+  if (existingTimer) {
+    runtimeWindow.clearTimeout(existingTimer);
+  }
+
+  const timer = runtimeWindow.setTimeout(() => {
+    button.dataset.copied = 'false';
+    button.textContent = 'Copy';
+    if (status) {
+      status.textContent = '';
+    }
+    resetTimers.delete(button);
+  }, 1500);
+
+  resetTimers.set(button, timer);
+}
+
+export function setupCopyButtons(doc = document, clipboard = navigator.clipboard, runtimeWindow = window) {
   const status = doc.getElementById('copy-status');
 
   doc.querySelectorAll('[data-copy-code]').forEach(button => {
@@ -56,28 +76,16 @@ export function setupCopyButtons(doc = document, clipboard = navigator.clipboard
         if (status) {
           status.textContent = 'Code copied to clipboard.';
         }
+        scheduleReset(button, status, runtimeWindow);
       } catch (error) {
         button.dataset.copied = 'false';
         button.textContent = 'Copy failed';
         if (status) {
           status.textContent = 'Unable to copy code to the clipboard.';
         }
-        window.setTimeout(() => {
-          button.textContent = 'Copy';
-          if (status) {
-            status.textContent = '';
-          }
-        }, 1500);
+        scheduleReset(button, status, runtimeWindow);
         return;
       }
-
-      window.setTimeout(() => {
-        button.dataset.copied = 'false';
-        button.textContent = 'Copy';
-        if (status) {
-          status.textContent = '';
-        }
-      }, 1500);
     });
   });
 }
