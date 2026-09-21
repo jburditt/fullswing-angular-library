@@ -1,4 +1,5 @@
 import { escapeHtml, formatDate, getCategoryDisplayName, slugify } from './html.js';
+import { getRelativeHref } from './routes.js';
 
 export interface LayoutOptions {
   route: string;
@@ -26,8 +27,10 @@ function renderCategoryPills(categories: string[]): string {
 }
 
 export function renderLayout(options: LayoutOptions): string {
-  const { assetPrefix, pageTitle, title, content, author, date, categories = [] } = options;
+  const { route, assetPrefix, pageTitle, title, content, author, date, categories = [] } = options;
   const escapedAssetPrefix = escapeHtml(assetPrefix);
+  const homeHref = escapeHtml(getRelativeHref(route, '/'));
+  const sitemapHref = escapeHtml(getRelativeHref(route, '/sitemap'));
   const headingMeta = author || date ? `
     <p class="page-meta">
       ${author ? `<span>${escapeHtml(author)}</span>` : ''}
@@ -56,8 +59,8 @@ export function renderLayout(options: LayoutOptions): string {
           </span>
         </a>
         <nav aria-label="Primary">
-          <a href="${escapedAssetPrefix}">Home</a>
-          <a href="${escapedAssetPrefix}sitemap/">Sitemap</a>
+          <a href="${homeHref}">Home</a>
+          <a href="${sitemapHref}">Sitemap</a>
           <a href="https://github.com/jburditt" rel="noopener noreferrer">GitHub</a>
         </nav>
       </header>

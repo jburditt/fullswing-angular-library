@@ -129,6 +129,21 @@ test('setupCategoryFilters should toggle pressed state and hide non-matching ite
   assert.equal(javascriptItem.hidden, true);
 });
 
+test('setupCategoryFilters should keep at least one category active', async () => {
+  const moduleUrl = new URL('../../src/assets/site.js', import.meta.url).href;
+  const { setupCategoryFilters } = await import(moduleUrl);
+
+  const angularButton = new FakeButton('angular', true);
+  const angularItem = new FakeItem('angular');
+  const document = new FakeDocument([angularButton], [angularItem]);
+
+  setupCategoryFilters(document);
+  angularButton.click();
+
+  assert.equal(angularButton.getAttribute('aria-pressed'), 'true');
+  assert.equal(angularItem.hidden, false);
+});
+
 test('setupCopyButtons should announce successful copy actions', async () => {
   const moduleUrl = new URL('../../src/assets/site.js', import.meta.url).href;
   const { setupCopyButtons } = await import(moduleUrl);

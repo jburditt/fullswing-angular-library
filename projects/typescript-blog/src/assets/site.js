@@ -28,6 +28,10 @@ export function setupCategoryFilters(doc = document) {
   buttons.forEach(button => {
     button.addEventListener('click', () => {
       const isPressed = button.getAttribute('aria-pressed') !== 'false';
+      const activeButtonCount = buttons.filter(entry => entry.getAttribute('aria-pressed') !== 'false').length;
+      if (isPressed && activeButtonCount === 1) {
+        return;
+      }
       button.setAttribute('aria-pressed', String(!isPressed));
       update();
     });
