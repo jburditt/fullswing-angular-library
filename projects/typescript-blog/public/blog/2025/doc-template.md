@@ -2,8 +2,8 @@ This sample post shows the Markdown + sidecar JSON authoring flow used by the st
 
 ## Metadata pairing
 
-- `public/blog/doc-template.md`
-- `public/blog/doc-template.json`
+- `public/blog/2025/doc-template.md`
+- `public/blog/2025/doc-template.json`
 
 ## Code fences
 

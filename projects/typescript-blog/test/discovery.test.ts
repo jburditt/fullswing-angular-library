@@ -25,6 +25,27 @@ test('discoverBlogs should reject orphan markdown files', async () => {
   );
 });
 
+test('discoverBlogs should discover posts in year folders', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'typescript-blog-discovery-'));
+  const blogDirectory = join(root, 'blog');
+  const yearDirectory = join(blogDirectory, '2025');
+  await mkdir(yearDirectory, { recursive: true });
+  await writeFile(join(yearDirectory, 'example.md'), '# Example\n', 'utf8');
+  await writeFile(
+    join(yearDirectory, 'example.json'),
+    JSON.stringify(VALID_METADATA),
+    'utf8'
+  );
+
+  const blogs = await discoverBlogs(blogDirectory);
+
+  assert.equal(blogs.length, 1);
+  assert.equal(blogs[0]?.id, 'example');
+  assert.equal(blogs[0]?.route, '/blog/example');
+  assert.equal(blogs[0]?.markdownPath, join(yearDirectory, 'example.md'));
+  assert.equal(blogs[0]?.metadataPath, join(yearDirectory, 'example.json'));
+});
+
 test('discoverBlogs should reject non-ISO dates in metadata', async () => {
   const root = await mkdtemp(join(tmpdir(), 'typescript-blog-discovery-'));
   const blogDirectory = join(root, 'blog');

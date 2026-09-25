@@ -22,8 +22,8 @@ export function getAssetPrefix(route: string): string {
 }
 
 export function getRelativeHref(fromRoute: string, toRoute: string): string {
-  const fromDirectory = path.posix.dirname(getOutputPath(fromRoute, '/dist'));
-  const toDirectory = path.posix.dirname(getOutputPath(toRoute, '/dist'));
+  const fromDirectory = path.posix.dirname(path.posix.join('/dist', ...getRouteSegments(fromRoute), 'index.html'));
+  const toDirectory = path.posix.dirname(path.posix.join('/dist', ...getRouteSegments(toRoute), 'index.html'));
   const relativePath = path.posix.relative(fromDirectory, toDirectory);
 
   if (!relativePath || relativePath === '') {

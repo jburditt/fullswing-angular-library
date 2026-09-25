@@ -1,5 +1,5 @@
 import { readdir } from 'node:fs/promises';
-import { basename, join } from 'node:path';
+import { basename, extname, join, relative, sep } from 'node:path';
 import { loadMetadata } from './metadata.js';
 import { BlogEntry, PageEntry } from './types.js';
 
@@ -19,11 +19,47 @@ function formatOrphanMessage(kind: 'blog markdown' | 'blog metadata' | 'page ren
   return `${kind} files are missing same-basename sidecars: ${orphans.join(', ')}`;
 }
 
+interface BlogFile {
+  relativePath: string;
+  absolutePath: string;
+}
+
+async function getBlogFiles(blogDirectory: string, currentDirectory = blogDirectory): Promise<BlogFile[]> {
+  const entries = await readdir(currentDirectory, { withFileTypes: true });
+  const files: BlogFile[] = [];
+
+  for (const entry of entries) {
+    const absolutePath = join(currentDirectory, entry.name);
+
+    if (entry.isDirectory()) {
+      files.push(...await getBlogFiles(blogDirectory, absolutePath));
+      continue;
+    }
+
+    if (entry.isFile()) {
+      files.push({
+        absolutePath,
+        relativePath: relative(blogDirectory, absolutePath).split(sep).join('/'),
+      });
+    }
+  }
+
+  return files;
+}
+
 export async function discoverBlogs(blogDirectory: string): Promise<BlogEntry[]> {
-  const entries = await readdir(blogDirectory, { withFileTypes: true });
-  const fileNames = entries.filter(entry => entry.isFile()).map(entry => entry.name);
-  const markdownBasenames = getSortedBasenames(fileNames, '.md');
-  const metadataBasenames = getSortedBasenames(fileNames, '.json');
+  const files = await getBlogFiles(blogDirectory);
+  const filesByRelativePath = new Map(files.map(file => [file.relativePath, file]));
+  const markdownPaths = files
+    .map(file => file.relativePath)
+    .filter(filePath => extname(filePath) === '.md')
+    .sort();
+  const metadataPaths = files
+    .map(file => file.relativePath)
+    .filter(filePath => extname(filePath) === '.json')
+    .sort();
+  const markdownBasenames = markdownPaths.map(filePath => filePath.slice(0, -'.md'.length));
+  const metadataBasenames = metadataPaths.map(filePath => filePath.slice(0, -'.json'.length));
 
   const orphanMarkdown = getOrphans(markdownBasenames, metadataBasenames);
   const orphanMetadata = getOrphans(metadataBasenames, markdownBasenames);
@@ -37,9 +73,15 @@ export async function discoverBlogs(blogDirectory: string): Promise<BlogEntry[]>
   }
 
   const blogs = await Promise.all(
-    markdownBasenames.map(async id => {
-      const metadataPath = join(blogDirectory, `${id}.json`);
-      const markdownPath = join(blogDirectory, `${id}.md`);
+    markdownBasenames.map(async relativePath => {
+      const markdownPath = filesByRelativePath.get(`${relativePath}.md`)?.absolutePath;
+      const metadataPath = filesByRelativePath.get(`${relativePath}.json`)?.absolutePath;
+
+      if (!markdownPath || !metadataPath) {
+        throw new Error(`Blog files for ${relativePath} could not be resolved.`);
+      }
+
+      const id = basename(relativePath);
       const metadata = await loadMetadata(metadataPath, `/blog/${id}`);
       return {
         ...metadata,

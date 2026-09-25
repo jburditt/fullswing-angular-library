@@ -44,9 +44,10 @@ Defined in `src/app/app.routes.ts`:
 ### Metadata Source
 - Metadata should not come from a shared `data.json` file.
 - Each content item should have a JSON metadata file with the same basename as the file or page it describes.
+- Blog posts should be organized beneath year folders within `public/blog/`.
 - Example markdown pairing:
-  - `public/blog/doc-template.md`
-  - `public/blog/doc-template.json`
+  - `public/blog/2025/doc-template.md`
+  - `public/blog/2025/doc-template.json`
 - The JSON sidecar should contain:
   - `route`
   - `title`
@@ -73,10 +74,10 @@ Defined in `src/app/app.routes.ts`:
 
 ### Markdown Blog Flow
 1. Route `/blog/:id` loads `Blog` component (`src/app/blog/blog.ts`).
-2. Component computes markdown source path: `blog/<id>.md`.
-3. The metadata loader resolves the matching `blog/<id>.json` file.
+2. Component computes the markdown source path from the post's path beneath `blog/`, such as `blog/2025/<id>.md`.
+3. The metadata loader recursively discovers and resolves the matching JSON sidecar in the same year folder.
 4. `BlogService` publishes metadata (title, categories, author, date) to shell.
-5. `ngx-markdown` renders markdown from `/public/blog/*.md`.
+5. `ngx-markdown` renders markdown from content discovered beneath `/public/blog/`.
 
 ### Component Page Flow
 1. Static route loads page component under `src/app/page/*`.
@@ -115,16 +116,18 @@ Configured in `angular.json` for `fullswing-blog` build:
   - optional line highlight and line offset settings
 
 ## Static Assets and Content
-- Content directory: `public/blog/*.md`
-- Metadata sidecars: `public/blog/*.json` and equivalent same-basename page metadata files
+- Content directory: `public/blog/<year>/*.md`, for example `public/blog/2025/*.md`
+- Metadata sidecars: same-basename `.json` files in the same year folder as their markdown files
+- Blog discovery must recursively scan year folders beneath `public/blog/` and preserve each post's relative path when resolving content and metadata.
 - Images/assets: `public/logo.jpg`, `public/avatar.png`, etc.
 
 ## How New Content Is Added
 For a new markdown post:
-1. Add markdown file to `public/blog/`.
-2. Add a JSON metadata file with the same basename in `public/blog/`.
-3. Ensure the route in the metadata matches the filename/id convention.
-4. Add matching `id` to prerender `routesIDs` in `app.routes.server.ts`.
+1. Add a year folder under `public/blog/`, if it does not already exist, such as `public/blog/2025/`.
+2. Add the markdown file to that year folder, such as `public/blog/2025/my-post.md`.
+3. Add a JSON metadata file with the same basename in the same folder, such as `public/blog/2025/my-post.json`.
+4. Ensure the route in the metadata matches `/blog/<basename>`; the year folder remains an organizational path, not part of the public route.
+5. Add matching `id` to prerender `routesIDs` in `app.routes.server.ts`.
 
 For a new component page:
 1. Create page component under `src/app/page/<page-name>/`.
@@ -134,6 +137,7 @@ For a new component page:
 
 ## Constraints to Preserve for TypeScript-Blog Migration
 - Must keep a metadata-driven model, but metadata should come from same-basename JSON files rather than a centralized index.
+- Must recursively discover markdown posts and same-basename metadata sidecars in year folders beneath `public/blog/`.
 - Must preserve route-to-content mapping for both markdown posts and richer pages.
 - Must keep sitemap generation and category-based filtering.
 - Must keep markdown rendering with syntax highlighting, line numbers, and line highlight support.
@@ -146,7 +150,15 @@ For a new component page:
 ## Known Gaps / Risks in Current Implementation
 - Prerender IDs are hard-coded and can drift from the available metadata files.
 - Content files and JSON metadata sidecars can drift if one exists without the other.
+- The generator must support recursive discovery of year-organized blog content; flat-directory discovery is insufficient.
 - Date values are string-based in JSON metadata, while sorting logic assumes date-like values.
 
 ## Initial Migration Notes (Step 1 Context)
 This spec captures the fullswing-blog behavior and the target metadata model so a new `typescript-blog` project can replicate functionality without Angular while using same-basename JSON metadata files instead of a centralized `data.json` index.
+
+## To-Do
+- No longer need route property in blog.json files
+- Add typescript skills
+- Add best practices instructions
+- Add spec-kit and documentation
+- Add unit and playwright tests (with axe)

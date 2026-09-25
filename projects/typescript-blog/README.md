@@ -43,22 +43,22 @@ dist/
 
 ### Markdown blog posts
 
-Place Markdown and metadata sidecars in `public/blog/`:
+Place Markdown and metadata sidecars in a year folder beneath `public/blog/`:
 
 ```text
-public/blog/my-post.md
-public/blog/my-post.json
+public/blog/2025/my-post.md
+public/blog/2025/my-post.json
 ```
 
 Metadata must include:
 
-- `route` — must match `/blog/<basename>`
+- `route` — must match `/blog/<basename>` regardless of the source year folder
 - `title`
 - `categories`
 - `author`
 - `date` — ISO format `YYYY-MM-DD`
 
-The build fails fast if a Markdown file or metadata file is missing its same-basename partner.
+The build recursively discovers year folders and fails fast if a Markdown file or metadata file is missing its same-basename partner.
 
 ### Page renderers
 
